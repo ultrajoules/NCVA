@@ -1,0 +1,104 @@
+
+
+
+[1] C.R. Galley, Phys. Rev. Lett. 110, 174301 (2013).
+
+[2] B.A. Malomed, Prog. Opt. 43, 71 (2002).
+
+[3] B.A. Malomed, “Soliton Management in Periodic Systems”, Springer-Verlag, Berlin, 2006.
+
+[4] Th. Dauxois and M. Peyrard, “Physics of Solitons”, Cambridge University Press, London, 2003.
+
+[5] Yu.S. Kivshar and G. Agrawal, “Optical Solitons: From Fibers to Photonic Crystals”, Academic Press, London, 2003.
+
+[6] D.J. Kaup and T.I. Lakoba J. Math. Phys. 37, 3442 (1996).
+
+[7] D.J. Kaup and T.K. Vogel Phys. Lett. A 362, 289 (2007).
+
+[8] C.R. Galley, D. Tsang, L.C. Stein, The principle of stationary nonconservative action for classical mechanics and field theories, arXiv:1412.3082 [math-ph]
+
+[9] P.G. Kevrekidis, Phys. Rev. A 89, 010102 (2014).
+
+[10] L.P. Pitaevskii and S. Stringari, Bose-Einstein Condensation, Oxford University Press (Oxford, 2003); C.J. Pethick and H. Smith, Bose-Einstein condensation in dilute gases, Cambridge University Press (Cambridge, 2002).
+
+[11] M.J. Ablowitz, B. Prinari and A.D. Trubatch, Discrete and Continuous Nonlinear Schr¨odinger Systems (Cambridge University Press, Cambridge, 2004).
+
+[12] I.S. Aranson and L. Kramer, Rev. Mod. Phys. 74, 99-143 (2002).
+
+[13] H. Goldstein, Classical Mechanics (Addison-Wesley, Reading, MA, 1980).
+
+[14] C. Sulem and P.L. Sulem, The Nonlinear Schr¨odinger Equation (Springer-Verlag, New York, 1999).
+
+[15] R.K. Dodd, J.C. Eilbeck, J.D. Gibbon, and H.C.Morris, Solitons and Nonlinear Wave Equations (Academic, New York, 1983).
+
+[16] L. Debnath. Nonlinear Partial Differential Equations for Scientists and Engineers. (Birkhauser Boston, 2005).
+
+[17] D.J. Benney and A.C. Newell. J. Math. Phys. 46, 133-139 (1967).
+
+[18] A. Hasegawa and F. Tappert. Appl. Phy. Lett. 23, 142-144 (1973).
+
+[19] A. Hasegawa, Optical Solitons in Fibers (Springer-Verlag, Heidelberg, 1990).
+
+[20] F.Kh. Abdullaev, S.A. Darmanyan, and P.K.  Khabibullaev, Optical Solitons (Springer-Verlag, Heidelberg, 1993).
+
+[21] A. Hasegawa and Y. Kodama, Solitons in Optical Communications (Clarendon Press, Oxford, 1995).
+
+[22] F. Tappert and C.M. Varma. Phys. Rev. Lett. 25, 1108-1111 (1970).
+
+[23] Y.H. Ichikawa, T. Imamure and T. Taniuti. Nonlinear wave modulation in collisionless plasma. J. Phys. Soc.  Jpn., 34, 189-197 (1972).
+
+[24] B.D. Fried and Y.H. Ichikawa. J. Phys. Soc. Jpn. 34, 1073-1082 (1973).
+
+[25] E. Infeld and G. Rowlands, Nonlinear Waves, Solitons and Chaos (Cambridge University Press, Cambridge, 1990).
+
+[26] P.G. Kevrekidis, D.J. Frantzeskakis, and R. Carretero-Gonz´alez (eds). Emergent Nonlinear Phenomena in Bose-Einstein Condensates: Theory and Experiment. Springer Series on Atomic, Optical, and Plasma Physics, Vol. 45, 2008.
+
+[27] R. Carretero-Gonz´alez, P. G. Kevrekidis, and D.  J. Frantzeskakis, Nonlinearity 21, R139 (2008).
+
+[28] J. Bourgain, Global Solutions of Nonlinear Schr¨odinger Equations (American Mathematical Society, Providence, 1999).
+
+[29] M.J. Ablowitz and H. Segur, Solitons and the Inverse Scattering Transform (SIAM, Philadelphia, 1981).
+
+[30] V.E. Zakharov, S.V.Manakov, S.P. Nonikov, and L.P.  Pitaevskii, Theory of Solitons (Consultants Bureau, NY, 1984).
+
+[31] A.C. Newell, Solitons in Mathematics and Physics (SIAM, Philadelphia, 1985).
+
+[32] G.P. Agrawal, Nonlinear Fiber Optics, 2nd Ed. (Academic Press, San Diego, CA, 1995).
+
+[33] D. Anderson, Phys. Rev. A 27, 3135 (1983).
+
+[34] Yu.S. Kivshar and X. Yang, Phys. Rev. E 49, 1657 (1994).
+
+[35] A. Scott, Nonlinear Science. Emergence and Dynamics of Coherent Structures (Oxford University Press, Oxford, 2003).
+
+[36] S. Ch´avez Cerda, S.B. Cavalcanti and J. M. Hickmann, Eur. Phys. J. D 1, 313 (1998).
+
+[37] H. Deng, H. Haug, Y. Yamamoto, Rev. Mod. Phys.  82, 1489-1537 (2010).
+
+[38] A. Amo, J. Lefr`ere, S. Pigeon, C. Abrados, C. Ciuti, I.  Carusotto, R. Houdr´e, E. Giacobino and A. Bramati, Nature Physics 5, 805-809 (2009).
+
+[39] K.G. Lagoudakis, M. Wouters, M. Richard, A. Baas, I. Carusotto, R. Andr´e, L.S. Dang, B. Deveaud-Pl´edran, Nature Physics 4, 706-710 (2008).
+
+[40] M.D. Fraser, G. Roumpos and Y. Yamamoto, New J.  Phys. 11, 113048 (2009).
+
+[41] G. Roumpos, M.D. Fraser, A. L¨offler, S. H¨ofling, A.  Forchel and Y. Yamamoto, Nature Physics 7, 129-133 (2011).
+
+[42] A. Amo, D. Sanvitto, F.P. Laussy, D. Ballarini, E.  del Valle, M.D. Martin, A. Lemaitre, J. Bloch, D.N.  Krizhanovskii, M.S. Skolnick, C. Tejedor and L Vina, Nature 457, 291-296 (2009).
+
+[43] A. Amo, T.C.H. Liew, C. Adrados, R. Houdr´e, E. Giacobino, A.V. Kavokin and A. Bramati, Nature Photonics 4, 361-366 (2010).
+
+[44] D. Sanvitto, S. Pigeon, A. Amo, D. Ballarini, M.  De Giorgi, I. Carusotto, R. Hivet, F. Pisanello, V.G.  Sala, P.S.S. Guimaraes, R. Houdre, E. Giacobino, C.  Ciuti, A. Bramati, G. Gigli, Nature Photonics 5, 610-614 (2011).
+
+[45] J. Keeling and N.G. Berloff, Phys. Rev. Lett. 100, 250401 (2008).
+
+[46] M.O. Borgh, J. Keeling and N.G. Berloff, Phys. Rev.  B 81, 234302 (2010).
+
+[47] J. Keeling and N. Berloff, Contemp. Phys. 52, 131-151 (2011).
+
+[48] J. Cuevas, A.S. Rodrigues, R. Carretero-Gonz´alez, P.G. Kevrekidis, and D.J. Frantzeskakis, Phys. Rev. B 83, 245140 (2011).
+
+[49] A.I. Nicolin and R. Carretero-Gonz´alez, Physica A 387 6032 (2008).
+
+[50] L.A. Smirnov, D.A. Smirnova, E.A. Ostrovskaya and Yu.S. Kivshar, Phys. Rev. B 89, 235310 (2014).
+
+

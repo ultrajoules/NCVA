@@ -1,0 +1,23 @@
+\small{\begin{verbatim}
+#NCVA for LLE (Temporal Tweezing) - 6-parameter Gaussian Ansatz + Phi
+#Ansatz of the form u(z,t) = A(z,t) * exp(I*theta(z,t)) - z is fast time (tau=t is slow time) -
+restart;
+interface(showassumed=0): assume(Ur, real): assume(Ui, real):
+Ustar := Ur+I*Ui; UStarc := Ur-I*Ui; assume(u0, complex);
+A := a(z)*exp(-(t-xi(z))^2/(2*(s(z))^2)):
+theta := b(z)+c(z)*(t-xi(z))+d(z)*(t-xi(z))^2;
+phi := alpha*exp(-(t-tau0)^2/(2*beta^2));
+phidot1 := diff(phi, t);
+V:= Delta + phidot1^2 - 2*abs(u0)^2:
+#New Lagrangian:
+LA := A^2*(diff(theta, z))+(diff(A, t))^2+A^2*(diff(theta, t))^2-(1/2)*A^4+Delta*A^2+phidot1^2*A^2-2*abs(u0)^2*A^2+2*(diff(phi, t))*A^2*(diff(theta, t));
+sub1 := diff(a(z),z)=ap,diff(s(z),z)=sp,diff(c(z),z)=cp,diff(xi(z),z)=xip,diff(d(z),z)=dp,diff(b(z),z)=bp:
+sub2 := xi(z)=xi,a(z)=a,c(z)=c,s(z)=s,d(z)=d, b(z)=b:
+LA2 := subs({sub1,sub2},LA):
+#Leff = integral of Lag, we need to assume that a>0 and xi real to be able to evaluate integrals
+assume(s>0): assume(xi,real):  assume(alpha, real): assume(beta>0): asume(s,real): assume(d,real): assume(c,real); assume(b, real):
+Leff := int(LA2,t=-infinity..infinity):
+uAs := subs({sub1,sub2},A*exp(I*theta)):
+uAsC := subs({sub1, sub2}, A*exp(-I*theta));
+AA := subs({sub1, sub2}, A); theta2 := subs({sub1, sub2}, theta); phi2 := subs({sub1, sub2}, phi);
+%

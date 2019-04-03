@@ -1,0 +1,104 @@
+% Appendix Template
+\setstretch{1.3}
+\chapter{NCVA Maple Worksheet for Temporal Tweezing} % Main appendix title
+\label{AppendixD} % Change X to a consecutive letter; for referencing thI_{\sigma} appendix elsewhere, use \ref{AppendixX}
+\lhead{Appendix A. \emph{NCVA Maple Worksheet}}
+\setstretch{2}
+
+The following NCVA Maple Worksheet was used to generate all the results in this dissertation for the Lugiato-Lefever model with phase-modulation.  The following also uses code generation for Matlab and Latex.  The resulting ODEs and integrals are explicitly written in Appendix~\ref{AppendixA} and~\ref{AppendixB}, respectively.
+
+%\begin{landscape}
+%\input{6p_GaussianAnsatzB}
+%\end{landscape}
+
+%\begin{landscape}
+%\small{\begin{code}{} 
+\vskip18pt\hrule\vskip-10pt\hskip0pt
+\begin{lstlisting}
+#NCVA for LLE (Temporal Tweezing) - 6-parameter Gaussian Ansatz + Phi
+#Ansatz of the form u(z,t) = A(z,t) * exp(I*theta(z,t)) - z is fast time (tau=t is slow time) - 
+restart; 
+interface(showassumed=0): assume(Ur, real): assume(Ui, real): 
+Ustar := Ur+I*Ui; UStarc := Ur-I*Ui; assume(u0, complex);
+A := a(z)*exp(-(t-xi(z))^2/(2*(s(z))^2)):   
+theta := b(z)+c(z)*(t-xi(z))+d(z)*(t-xi(z))^2;
+phi := alpha*exp(-(t-tau0)^2/(2*beta^2));
+phidot1 := diff(phi, t);
+V:= Delta + phidot1^2 - 2*abs(u0)^2:
+
+#New Lagrangian:
+LA := A^2*(diff(theta, z))+(diff(A, t))^2+A^2*(diff(theta, t))^2-(1/2)*A^4+Delta*A^2+phidot1^2*A^2-2*abs(u0)^2*A^2+2*(diff(phi, t))*A^2*(diff(theta, t));
+sub1 := diff(a(z),z)=ap,diff(s(z),z)=sp,diff(c(z),z)=cp,diff(xi(z),z)=xip,diff(d(z),z)=dp,diff(b(z),z)=bp:
+sub2 := xi(z)=xi,a(z)=a,c(z)=c,s(z)=s,d(z)=d, b(z)=b:
+LA2 := subs({sub1,sub2},LA):
+
+#Leff = integral of Lag, we need to assume that a>0 and xi real to be able to evaluate integrals
+assume(s>0): assume(xi,real):  assume(alpha, real): assume(beta>0): asume(s,real): assume(d,real): assume(c,real); assume(b, real):
+Leff := int(LA2,t=-infinity..infinity):
+uAs := subs({sub1,sub2},A*exp(I*theta)):    
+uAsC := subs({sub1, sub2}, A*exp(-I*theta));
+AA := subs({sub1, sub2}, A); theta2 := subs({sub1, sub2}, theta); phi2 := subs({sub1, sub2}, phi);
+phidot := subs({sub1, sub2}, diff(phi, t)); phidot2 := subs({sub1, sub2}, diff(phi, `$`(t, 2)));
+ut := subs({sub1, sub2}, diff(A*exp(I*theta), t)); utC := subs({sub1, sub2}, diff(A*exp(-I*theta), t));
+duda := diff(uAs, a); dudac := diff(uAsC, a);
+dudb := diff(uAs,b): dudbc := diff(uAsC,b):
+dudd := diff(uAs, d); duddc := diff(uAsC, d);
+dudc := diff(uAs,c): dudcc := diff(uAsC,c):
+duds := diff(uAs, s): dudsc := diff(uAsC, s):
+dudxi := diff(uAs,xi): dudxic := diff(uAsC,xi):  
+pertRa := evalc(int(-I*(1+phidot2)*AA^2/a + I*(1+phidot2)*AA^2/a,t=-infinity..infinity)):
+FIa := (phidot^2-phidot2-3*AA^2)*AA*(2*Ur*cos(theta2)+2*Ui*sin(theta2))/a-AA^2*(2*Ur^2*cos(2*theta2)-2*Ui^2*cos(2*theta2)+4*Ui*Ur*sin(2*theta2))/a;
+pertRs := evalc(int(-I*(1+phidot2)*AA^2*(t-xi)/s^2+I*(1+phidot2)*AA^2*(t-xi)/s^2, t = -infinity .. infinity));
+FIs := (phidot^2-phidot2-3*AA^2)*AA*(t-xi)^2*(2*Ur*cos(theta2)+2*Ui*sin(theta2))/s^3-AA^2*(t-xi)^2*(2*Ur^2*cos(2*theta2)-2*Ui^2*cos(2*theta2)+4*Ui*Ur*sin(2*theta2))/s^3;
+pertRc := int(((-I-I*phidot2)*uAs*dudcc + (I+I*phidot2)*uAsC*dudc, t=-infinity..infinity)): 
+FIc := (phidot^2-phidot2-AA^2)*AA*(t-xi)*(2*Ur*cos(theta2)-2*Ui*sin(theta2))-AA^2*(t-xi)*(2*Ui^2*sin(2*theta2)-2*Ur^2*sin(2*theta2)+4*Ui*Ur*cos(2*theta2));
+pertRd := int(simplify((-I-I*phidot2)*uAs*duddc  + (I+I*phidot2)*uAsC*dudd), t=-infinity..infinity):
+FId := (phidot^2-phidot2-AA^2)*AA*(t-xi)^2*(2*Ur*cos(theta2)-2*Ui*sin(theta2))-AA^2*(t-xi)^2*(2*Ui^2*sin(2*theta2)-2*Ur^2*sin(2*theta2)+4*Ui*Ur*cos(2*theta2));
+pertRxi := int(((-I-I*phidot2)*uAs*dudxic + (I+I*phidot2)*uAsC*dudxi), t=-infinity..infinity): 
+FIxi := (phidot^2-phidot2-AA^2)*AA*(-c-2*d*(t-xi))*(2*Ur*cos(theta2)-2*Ui*sin(theta2))-AA^2*(-c-2*d*(t-xi))*(2*Ui^2*sin(2*theta2)-2*Ur^2*sin(2*theta2)+4*Ui*Ur*cos(2*theta2))+(phidot^2-phidot2-3*AA^2)*AA*(t-xi)*(2*Ur*cos(theta2)+2*Ui*sin(theta2))/s^2-AA^2*(t-xi)*(2*Ur^2*cos(2*theta2)-2*Ui^2*cos(2*theta2)+4*Ui*Ur*sin(2*theta2))/s^2;
+pertRb := int((-I-I*phidot2)*uAs*dudbc+(I+I*phidot2)*uAsC*dudb, t = -infinity .. infinity);
+FIb := (phidot^2-phidot2-AA^2)*AA*(2*Ur*cos(theta2)-2*Ui*sin(theta2))-AA^2*(2*Ui^2*sin(2*theta2)-2*Ur^2*sin(2*theta2)+4*Ui*Ur*cos(2*theta2)):
+
+#Put back z-dependences so that we can do Euler-Lagrange
+subi1 := ap=diff(a(z),z),dp=diff(d(z),z),cp=diff(c(z),z),sp=(diff(s(z),z)),bp=(diff(b(z),z)),xip=(diff(xi(z),z)):
+subi2 := b=b(z),s = s(z),c=c(z),xi=xi(z),a=a(z),d=d(z):
+sub11 := ap=diff(a(z),z),sp=diff(s(z),z),cp=diff(c(z),z),xip=diff(xi(z),z),dp=diff(d(z),z),bp=diff(b(z),z):
+sub22 := d=d(z), b=b(z), xi=xi(z), a=a(z), c=c(z), s=s(z): sub33 := AA = A, theta2 = theta: 
+eFIa := subs({subi1, subi2}, FIa); eFIb := subs({sub11, sub22}, FIb); eFIc := subs({sub11, sub22}, FIc); eFId := subs({sub11, sub22}, FId); eFIs := subs({sub11, sub22}, FIs); eFIxi := subs({sub11, sub22}, FIxi);
+
+#Modified Euler-Lagrange equations of motion 
+dLsp := subs({subi1, subi2},diff(Leff,sp)):
+dLbp := subs({subi1, subi2},diff(Leff,bp)):
+dLcp := subs({subi1, subi2},diff(Leff,cp)):
+dLdp := subs({subi1, subi2},diff(Leff,dp)):
+dLap := subs({subi1, subi2},diff(Leff,ap)):
+dLxip:= subs({subi1, subi2},diff(Leff,xip)):
+eq1 := diff(dLsp,z) - subs({subi1,subi2},diff(Leff,s)) = subs({subi1,subi2},pertRs+Is):
+eq2 := diff(dLbp,z) - subs({subi1,subi2},diff(Leff,b)) = subs({subi1,subi2},pertRb+Ib):
+eq3 := diff(dLcp,z) - subs({subi1,subi2},diff(Leff,c)) = subs({subi1,subi2},pertRc+Ic):
+eq4 := diff(dLdp,z) - subs({subi1,subi2},diff(Leff,d)) = subs({subi1,subi2},pertRd+Id):
+eq5 := diff(dLap,z) - subs({subi1,subi2},diff(Leff,a)) = subs({subi1,subi2},pertRa+Ia):
+eq6 := diff(dLxip,z) - subs({subi1,subi2},diff(Leff,xi)) = subs({subi1,subi2},pertRxi+Ixi):
+
+#Sove Euler-Lagrange ODEs simultaneously 
+sol:= simplify(solve({eq1,eq2,eq3,eq4,eq5,eq6},{diff(a(z),z),diff(b(z),z),diff(s(z),z),diff(d(z),z),diff(c(z),z),diff(xi(z),z)})):
+eqs := diff(s(z),z)=subs(sol,diff(s(z),z)):
+eqb := diff(b(z),z)=subs(sol,diff(b(z),z)):
+eqc := diff(c(z),z)=subs(sol,diff(c(z),z)):
+eqd := diff(d(z),z)=subs(sol,diff(d(z),z)):
+eqa := diff(a(z),z)=subs(sol,diff(a(z),z)):
+eqxi := diff(xi(z),z)=subs(sol,diff(xi(z),z)):
+
+#Generate Matlab code
+subMatlab := a(z) = x(1), b(z) = x(2), c(z)=x(3), d(z) = x(4), s(z)=x(5), xi(z) = x(6), Delta = k, Ui = imag(uS), Ur=real(uS), alpha = h, beta = sigma_X: 
+M1 := subs({subMatlab},(eqa)):  M2 := subs({subMatlab},collect(eqb,{a(z),s(z)},recursive)): M3 := subs({subMatlab},(eqc)): M4 := subs({subMatlab},collect(eqd,{a(z),s(z)},recursive)): M5 := subs({subMatlab},(eqs)): M6 := subs({subMatlab},(eqxi)): F1 := subs({subMatlab},(eFIa)): F2 := subs({subMatlab},(eFIb)):  F3 := subs({subMatlab},(eFIc)):  F4 := subs({subMatlab},(eFId)):  F5 := subs({subMatlab},(eFIs)):  F6 := subs({subMatlab},(eFIxi)):
+with(CodeGeneration):
+Matlab(M1): Matlab(M2): Matlab(M3): Matlab(M4):Matlab(M5): Matlab(M6):
+Matlab(F1); Matlab(F2); Matlab(F3); Matlab(F4); Matlab(F5); Matlab(F6)
+
+#Generate LaTeX code
+subLatex := a(z) = a, b(z) = b, c(z)=c, d(z) = d, s(z)=sigma, xi(z) = xi, Ui = imag(uS), Ur=real(uS), alpha = h_phi, beta = sigma_phi: 
+F1 := subs({subLatex}, eFIa); F2 := subs({subLatex}, eFIb); F3 := subs({subLatex}, eFIc); F4 := subs({subLatex}, eFId); F5 := subs({subLatex}, eFIs); F6 := subs({subLatex}, eFIxi);
+latex(F1); latex(F2); latex(F3); latex(F4); latex(F5); latex(F6);
+\end{lstlisting}\vskip-3pt\hrule\vskip18pt}
+

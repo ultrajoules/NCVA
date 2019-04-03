@@ -1,0 +1,73 @@
+\setstretch{1.3}
+\chapter{Introduction} %, Background and Motivation}
+\label{chap:intro}
+\lhead{Chapter 1. \emph{Introduction}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
+
+\setstretch{2}
+The nonlinear Schr\"{o}dinger (NLS) equation is a dispersive nonlinear partial differential equation (PDE) describing a wide range of physical nonlinear systems.   The earliest applications of the NLS were introduced by Ginzburg, Landau, and Pitaevskii in the fields of superconductivity~\cite{Ginzburg1950,Ginzburg1956} and superfluidity~\cite{GinzburgPitaevskii}.  However, the wider physical importance of the NLS equation was made evident by Chiao et. al.~\cite{Chiao1964} and Talanov~\cite{Talanov1964} in studying self-focusing phenomenon.  The equation and its variants are of principal interest
+to applications from optical physics~\cite{Kivshar:03}, 
+atomic physics~\cite{pitas} and other areas of mathematical
+physics~\cite{chap01:ablowitz}, not only in their conservative,
+but also in dissipative variants of the model~\cite{Aranson:02}.  In what follows, we give you a brief review of the NLS equation and its soliton solutions.  
+
+\setstretch{1.3}
+\section{A Brief Introduction to NLS and Solitons} %, Background and Motivation}
+\label{sec:NLS}
+\setstretch{2}
+
+The NLS is the lowest order (i.e. normal form) nonlinear wave partial differential equation (PDE) describing envelope waves in nonlinear media.  The one-dimensional NLS equation in nondimensonal form is usually cast as 
+\begin{align}
+i \partial_t \psi+ \frac{1}{2}\partial_{xx} \psi + g|\psi|^2 \psi = 0, 
+\label{intro:NLS}
+\end{align}
+where $\psi$ is the complex field and $g$ is the nonlinearity.  The NLS has two forms depending on the sign of the nonlinearity: an attractive/focusing NLS for $g = +1$ and a repulsive/defocusing NLS for $g=-1$.  
+%The NLS contains a dispersion term $\partial_{xx} \psi$, and the lowest order of nonlinearity $|\psi|^2 \psi$.  The interplay of nonlinearity and dispersion leads to the appearance of localized wavepackets moving without distortion.  
+The NLS admits soliton solutions which are solitary, localized wavepackets traveling without distortion due to the interplay of nonlinearity ($|\psi|^2 \psi$) and dispersion ($\partial_{xx} \psi$).  The focusing NLS allows for bright soliton solutions characterized by spatial attenuation towards infinity, while the defocusing NLS allows for dark soliton solutions with a nontrivial background intensity (i.e. the soliton does not vanish at infinity).
+
+To find these solitons, we look for solutions using an ansatz of the form:
+\begin{align}
+\psi (x,t) = A(x,t) \exp(i \phi(x,t)),
+\label{waveguess}
+\end{align}
+where $A(x,t)$ describes the envelope wave and $\phi(x,t)$ is the carrier wave.  We substitute Eq.~(\ref{waveguess}) into Eq.~(\ref{intro:NLS}) and separate into the real and imaginary parts to obtain the system of equations 
+\begin{align}
+A_t + A_x \phi_x + \frac{1}{2} A \phi_{xx} = 0,\label{bright0} \\
+-A \phi_t + \frac{1}{2} A_{xx}  - \frac{1}{2} A \phi_x^2 + g A^3 = 0. 
+\label{bright1}
+\end{align}
+We use a linear phase $\phi = b(x-ct) + \phi_0$, which satisfies Eq.~(\ref{bright1}), then the amplitude Eq.~(\ref{bright0}) is integrated and becomes
+\begin{align}
+A_{xx} - bf + 2 g A^3=0. 
+\label{bright2}
+\end{align}
+Depending on the sign of $g$, Eq.~(\ref{bright0}) can be integrated with the appropriate boundary conditions to obtain the soliton solution.  In the case of defocusing NLS ($g=-1$) the solution has non-zero boundary conditions and a hyperbolic tangent-type profile describes the wave packet envelope, which is known as a dark soliton.  However, our main interest is the focusing NLS ($g = +1$) for which the elliptic Eq.~(\ref{bright0}) is easily integrated by assuming zero boundary conditions to obtain 
+\begin{align}
+\psi(x,t) = \sqrt{b} \;  {\rm sech} \left[\sqrt{b} (x-ct - x_0) \right] \; \exp \left[ i (cx + \frac{b - c^2}{2c} t + \phi_0\right], 
+\end{align}
+which is a four-parameter bright soliton solution.  For the purposes of this dissertation, we are most interested in bright solitons, which in its simplest form has a ${\rm sech}$-type profile describing the wave packet envelope with a spatial and time-dependent phase.  Understanding the fundamental nature and solutions of the conservative NLS is necessary in order to begin developing the concepts in this thesis which are concerned with non-conservative (dissipative) PDEs of the NLS-type. 
+
+
+\setstretch{1.3}
+\section{Overview} %, Background and Motivation}
+\label{sec:NLS}
+\setstretch{2}
+
+The focus of this dissertation is to explore variational approaches to study nonlinear waves including dissipative pulse propagation~\cite{Cerda}.  Applications of this technique include, but are not limited to, $\mathcal{PT}$-symmetric variants in nonlinear optics~\cite{Kevrekidis2014}, excitations of Bose-Einstein condensates~\cite{Kreibich} and charged polymers~\cite{Jonsson}.  Our variational approach is based on using well-educated ansatze in the Lagrangian of complex, infinitely dimensional, problems cast in the form of dissipative variants of the NLS equation.  
+%The NLS is the lowest order (i.e., the normal form) nonlinear partial differential equation describing envelope waves in nonlinear media.  
+By choosing an ansatz with time dependent parameters such as center position, width, amplitude, phase, etc., the original problem can be reduced in complexity to a few degrees of freedom.  The variational approximation (VA) method projects the high-dimensional (or infinite-dimensional) dynamics to a low-dimensional system on the dynamics of the time-dependent parameters to describe the qualitative and quantitative behavior of the original dynamical, complex system.  %The projection can be beneficial or detrimental to acquiring the necessary information to accurately describe the dynamics of the system.% 
+Classically, the variational method relies on the existence of a Lagrangian or Hamiltonian structure from which the Euler-Lagrange equations can be derived.  This prerequisite limits the application of the variational approach to conservative systems.  It is this limitation that we want to overcome by extending the VA to non-conservative (non-Hamiltonian) systems. 
+
+The recent publication by Galley~\cite{Galley} offers a new perspective to the classical mechanical formulations.  He asserts that  Hamilton's principle has a pitfall in that it is formulated as a boundary value problem in time but used to derive equations of motion that are solved with initial data.  By treating the extremization problem as an initial value problem, a variational calculus can be applied to non-conservative systems.  Although Galley's proposal was originally cast for classical mechanics systems, i.e.~systems described by ordinary differential equations (ODEs), it paved the way for the application to dispersive complex nonlinear PDEs.  In this dissertation, we extend Galley's approach towards a non-conservative variational approximation (NCVA) for general complex PDEs of the NLS type.  This extension is initially derived in Chapter~\ref{chap:NCVA} for the focusing NLS in order to simplify basic test cases on soliton propagation, although the same procedure can be applied to the defocusing NLS.  There are at least two other variational methods that have been applied to dissipative NLS equations: the perturbed variational approximation (PVA) and a generalization of the Kantorovitch method in a recent publication by Cerda~\cite{Cerda}.  In the following chapter, we briefly summarize the formalism of these two methods from literature and prove that they are equivalent to the NCVA in the case of the NLS equation.  
+
+The application of the NCVA relies on obtaining a useful Lagrangian for the non-conservative system.  The NCVA produces a system of equations depending on the number of ansatz parameters and effectively reduces the original PDE model to a system of ODEs.  To show the relevance and validity of the NCVA, we explore three dynamical system examples in Chapter~\ref{chap:Results}.  Two are dissipative NLS systems, one with linear loss and the other with density dependent loss.  The latter example deals with nonlinear pulse propagation in the presence of two-photon absorption.  The third example is a non-Hamiltonian, non-conservative dynamical model for exciton-polariton condensates which are bound electron-hole pairs (excitons) interacting with light (photons).  Polaritons are important in solid-state Bose-Einstein condensates (BECs) due to their light mass allowing for condensation temperatures on the order of tens of Kelvin; however, a disadvantage is their short radiative lifetime of the order 1-10 ps so they have to be continuously replenished from a reservoir of excitons.  The external pumping from the reservoir of excitons counterbalances the loss of polaritons due to the decay~\cite{Cuevas2011}.  These two effects yield a modified NLS model with linear gain (exciton pumping) and density dependent loss (polariton decay).  To validate the NCVA, we compare the NCVA ODEs for the functional parameters of the ansatz to full numerical solutions of the original PDE.  
+
+The main topics of interest elaborated in the dissertation are non-conservative PDEs of the NLS type in nonlinear optics, specifically on the existence of spontaneous symmetry breaking  (SSB) and temporal tweezing in these systems.  After developing the NCVA methodology in Chapter~\ref{chap:NCVA} and showcasing its application in Chapter~\ref{chap:Results}, we begin the extension of the NCVA approach to a variant of the NLS equation: the mean-field Lugiato-Lefever (LL) model by studying symmetry breaking instability in a coherently-driven optical Kerr resonator in Chapter~\ref{chap:LL}.  SSB is the basis for many phase transitions and accounts for effects including ferromagnetism, superconductivity, and convection cells.  SSB occurs in nonlinear Hamiltonian systems such as open systems in the case of a  synchronously-pumped passive optical resonator filled with a Kerr 
+nonlinear material as experimentally studied in Ref.~\cite{XuCoen}.  In addition to the NCVA, we also perform a detailed stability analysis of the LL model and analyze the temporal bifurcation structure of stationary symmetric configurations and the emerging asymmetric states as a function of the pump power.  We also use \JMR{local bifurcation theory} in order to analyze the most unstable eigenmode of the system.  
+
+In Chapter~\ref{chap:Tweeze} we investigate temporal tweezing of cavity solitons in a passive loop of optical fiber pumped by a continuous-wave laser beam which is described by a modified LL model.  The optical trapping and manipulation of the temporal position of light pulses is highly desirable as it has immediate implications for optical information processing which has recently been realized experimentally~\cite{tweeze}.  Information is treated as a sequence of pulses that can be stored and reconfigured by trapping ultrashort pulses of light and dynamically moving them around in time.  In the experiment, temporal cavity solitons (CSs) exist as picosecond pulses of light that recirculate in a loop of optical fibre and are exposed to temporal controls in the form of a gigahertz phase modulation.  It has been shown, both theoretically and experimentally, that the CSs are attracted and trapped to phase maxima, suppressing all soliton interactions.  These trapped CSs can then be manipulated in time, either forward or backward, which is known as temporal tweezing.  We study the existence and dynamics of temporally tweezed CSs.  The key phenomena reported herein are parametric intervals for the existence of tweezed CSs, dissipative CSs, and non-trapped CSs.  We also apply the NCVA to identify regions of temporal tweezing, and compare to the full numerical solutions of the original PDE.    
+ 
+In summary, the dissertation is organized as follows.  In Chapter~\ref{chap:NCVA} we present the formalism of the NCVA and its application to the NLS in Chapter~\ref{chap:Results}.  Chapter~\ref{chap:LL} is a comprehensive analysis of SSB for the LL equation using a NCVA and \JMR{local bifurcation} analysis.  Finally, Chapter~\ref{chap:Tweeze} identifies parametric regions for temporal tweezing using both a modified LL and NCVA approach, and Chapter~\ref{chap:conclusion} concludes our work, including suggestions for future studies.
+
+
+
+

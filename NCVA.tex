@@ -1,0 +1,625 @@
+\setstretch{1.3}
+\chapter{Non-Conservative Variational Approximation}
+\label{chap:NCVA}
+\lhead{Chapter 2. \emph{Non-Conservative Variational Approximation}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
+
+\setstretch{2}
+A commonly used approximation method is known as the variational method.  This method is widely used in quantum chemistry, especially Hartree-Fock and variational quantum Monte Carlo theories lacking exact solutions~\cite{mitroy99f,QMC, Ceperley}.  Variational methods are also useful to describe nonlinear wave dynamics in nonlinear optics and atomic physics~\cite{Boris:02,Boris:06,Dauxois:03,Kivshar:03}.  In these methods a well-informed ansatz is substituted into an original partial differential equation (PDE) model which reduces an infinite dimensional system to a few degrees of freedom.  Variational approximation (VA) methods rely on a conservative, \textit{closed system} with a Lagrangian or Hamiltonian formulation from which one derives Euler-Lagrange equations for the approximate dynamics of the system projected into the solution space of the ansatz.  
+
+The VA method projects the infinite-dimensional dynamics of the original PDE to a small, finite-dimensional, dynamical system for the parameters of the ansatz space.  The intrinsic drawbacks of using an ansatz subspace is that it must contain enough degrees of freedom to describe the dynamical properties of the system and requires prior knowledge of these dynamics.  Therefore, when the ansatz ceases to describe the full PDE dynamics, the projection can lead to invalid results~\cite{Kaup:96}, a feature which is naturally expected (given the large reduction in the
+number of degrees of freedom) when the full PDE dynamics ceases to be 
+well-described by the selected ansatz.
+Nonetheless, there have been some efforts to control the corrections of the
+VA to increase the accuracy of the results~\cite{Kaup:07}.
+
+Due to the limitations of the application of the VA method to conservative systems, there are several well-known continuations for non-conservative systems such as linear perturbed VA and Kantorovitch method.  Another perspective to the classical mechanical formulation was offered by Galley~\cite{Galley,Galley:14} by recognizing that the Hamiltonian-Lagrange formulation is a boundary value problem in time used to derive equations of motion solved with initial data and confined to conserved systems.  Instead, Galley proposes treating the extremization as an initial value problem in order to apply the variational calculus to non-conservative systems, specifically systems described by ODEs.    
+
+In Sec.~\ref{sec:NCVA} we extend Galley's~\cite{Galley} initial value formulation to complex nonlinear PDEs.  In Sec.~\ref{sec:NLS} we focus on the extension of NCVA method for NLS-type equations.  The two well studied methods currently used to derive initial value problems from the non-conservative NLS are briefly outlined; the perturbed variational approximation (PVA) in Sec.~\ref{sec:PVA} and the modified Kantorovitch method~\cite{Cerda} (KVA) in Sec.~\ref{sec:KVA}.  In Sec.~\ref{sec:Equivalence}, we prove that the three methods (PVA, KVA, and NCVA) are equivalent.  After establishing the theoretical foundation of the NCVA method, we present in Chapter~\ref{chap:Results} results for three bright soliton test cases:  NLS with linear loss, NLS with density dependent loss and NLS with linear gain and density dependent loss (exciton-polariton condensate).  
+
+\setstretch{1.3}
+\section{Non-conservative Variational Approximation \\ Formalism} \label{sec:NCVA}
+\setstretch{2}
+Hamilton's principle relies on a Lagrangian formulation of a system to derive equations of motion for conservative systems.  The derivation of Lagrange's equations considers the entire evolution of the system between times $t_i$ and $t_f$ and small virtual variations of this motion from the actual motion, known as an ``integral principle''.  The integral Hamilton's principle describes the motion of a monogenic system i.e. a physical system for which all forces (except the force constraint) are derivable from a generalized scalar potential~\cite{Goldstein}.  Hamilton's principle for monogenic systems states: ``The motion of a system from time $t_i$ to time $t_f$ is such that the line integral (called the action of the action integral) 
+\begin{align}
+S = \int_{t_i}^{t_f} \mathcal{L} \; dt,
+\label{eq:HamiltonsAction}
+\end{align}  
+where $\mathcal{L} = \mathcal{T}-\mathcal{V}$ has a stationary value for the actual path of the motion''~\cite{Goldstein}.   $\mathcal{L}$ is the Lagrangian density, $\mathcal{T}$ is kinetic energy and $\mathcal{V}$ is the potential energy of the system.  Therefore, from all the possible paths from the position at $t_i$ to the position at $t_f$, the system point will travel along that path for which the integral Eq.~(\ref{eq:HamiltonsAction}) is stationary.  Hamilton's principle is summarized by saying that the motion is such that the variation of the line integral $S$ for fixed $t_i$ and $t_f$ is zero:
+\begin{align}
+\delta S = \delta \int_{t_i}^{t_f} \mathcal{L}(q_1, ...,q_n, \dot{q}_1,...,\dot{q}_n, t) dt = 0.  
+\end{align} 
+Lagrange equations follow from Hamilton's principle, which are formed as a boundary value problem in time with initial data.  However, we are interested in studying the dynamics of non-conservative systems.  For simple dissipative forces, one can use Rayleigh's dissipation function.  The following section explains the Lagrangian formulation for generic non-conservative systems. 
+
+Extending the variational approximation for non-conservative systems in classical mechanics described in Galley~\cite{Galley}, we apply the technique to complex PDEs.  The foundation of the derivation of the non-conservative variational approximation is based on using Hamilton's principle of stationary action compatible as an initial value problem --- as opposed to a boundary value in time --- derived to solve equations of motion used in conservative systems.  In the papers by Galley~\cite{Galley} and Kevrekidis~\cite{Kevrekidis2014}, the authors treat, respectively, dissipative systems in the form of ODEs and real PDEs.  We are interested in extending the initial value problem formulations of Hamilton's principle to complex PDEs, i.e.~the NLS equation.  
+
+In the recent publication Galley~\cite{Galley} illustrated that the time-symmetric and conservative dynamics is due to the boundary value form of the action extremization problem.  Instead, he proposed the extremization problem to be considered as an initial value problem for two sets of variables, $q_1$ and $q_2$, then one could apply variational calculus for non-conservative systems.
+
+One can introduce two sets of variables $\vec{q}_1$ and $\vec{q}_2$ such that $\vec{q}_1$ gives the correct force provided $\vec{q}_2 = \vec{q}_1$ after the variation.  Let $\vec{q} \equiv \{q_i\}_{i=1}^N$ and $\dot{\vec{q}} \equiv  \{ \dot{\vec{q}}_i \}_{i=1}^N$ be a set of $N$ generalized coordinates and velocities.  Double both sets of quantities, $\vec{q} \rightarrow (\vec{q_1}, \vec{q_2})$ and $\dot{\vec{q}} \rightarrow (\dot{\vec{q}}_1, \dot{\vec{q}}_2)$ and parametrize both coordinate paths:
+\begin{align}
+\vec{q}_{1,2} (t, \epsilon) = \vec{q}_{1,2} (t, 0) + \epsilon \vec{\eta}_{1,2}(t), 
+\end{align}
+where $\vec{q}_{1,2} (t, 0)$ are the coordinates of two stationary paths ($\epsilon \ll 1$) and $\vec{\eta}_{1,2}(t) $ are arbitrary virtual displacements.  The following equality conditions are required for varying the action:
+\begin{align}
+\vec{\eta}_{1,2}(t_i) &= 0, \\
+\vec{q}_{1} (t_f, \epsilon) &= \vec{q}_{2} (t_f, \epsilon), \\
+\dot{\vec{q}}_{1} (t_f, \epsilon) &= \dot{\vec{q}}_{2} (t_f, \epsilon).
+\end{align}
+Therefore, the equality condition does not fix either value at the final time.  After all variations are performed, both paths are set equal and identified with the physical one, $\vec{q}(t)$, the so-called physical limit.  
+
+The action functional of $\vec{q}_1$ and $\vec{q}_2$ is defined as the total line integral of the Lagrangian along both paths plus the line integral of a functional $\mathcal{R}$ depending on both paths $\{\vec{q}_a\}_{a=1}^2$:
+\begin{align}
+S[\vec{q}_a] &\equiv \int_{t_i}^{t_f} dt \; \mathcal{L} (\vec{q}_1, \dot{\vec{q}}_1) + \int_{t_f}^{t_i} dt \;  \mathcal{L} (\vec{q}_2, \dot{\vec{q}}_2)  + \int_{t_i}^{t_f} dt \; \mathcal{R} (\vec{q}_a, \dot{\vec{q}}_a, t),  \\
+&= \int_{t_i}^{t_f} dt [\mathcal{L} (\vec{q}_1, \dot{\vec{q}}_1)  - \mathcal{L}(\vec{q}_2, \dot{\vec{q}}_2) + \mathcal{R} (\vec{q}_a, \dot{\vec{q}}_a, t) ].
+\end{align}
+The above action defines a new Lagrangian:
+\begin{align}
+\Lambda (\vec{q}_a, \dot{\vec{q}}_a) \equiv  \mathcal{L} (\vec{q}_1, \dot{\vec{q}}_1) - \mathcal{L} (\vec{q}_2, \dot{\vec{q}}_2) + \mathcal{R} (\vec{q}_a, \dot{\vec{q}}_a, t).
+\label{eq:action}
+\end{align}
+If $\mathcal{R}$ is written as the difference of two potentials $V(\vec{q}_1) - V(\vec{q}_2)$, then it may be absorbed into the difference of the Lagrangians, leaving $\mathcal{R}$ zero.  A nonzero $\mathcal{R}$ describes {\em non-conservative} forces and couples the two paths together.
+
+For convenience, following~\cite{Galley}, we make a change of variables to $\vec{q}_+ = (\vec{q}_1 +\vec{q}_2)/2$ and $\vec{q}_- = \vec{q}_1  -\vec{q}_2$ because $\vec{q}_- \rightarrow 0$ and  $\vec{q}_+ \rightarrow \vec{q}$ in the physical limit.  The conjugate momenta are found as $\vec{\pi}_\pm = \partial \Lambda / \partial \dot{\vec{q}}_\mp$ and the paths are parametrized as $\vec{q}_{\pm} (t, \epsilon) = \vec{q}_{\pm} (t, 0) + \epsilon \vec{\eta}_{\pm}(t)$.  The new action is stationary under these variations if $(dS[\vec{q}_\pm]/d\epsilon)_{\epsilon = 0} = 0$ for all $\vec{\eta}_{\pm}$:
+\begin{align}
+& \int_{t_i}^{t_f} dt \Bigg\{ \vec{\eta}_+ \cdot  \Bigg[ \frac{\partial \Lambda}{\partial \vec{q}_+} - \frac{d}{dt} \frac{\partial \Lambda}{\partial \dot{\vec{q}}_+} \Bigg]_{\epsilon=0} +  \vec{\eta}_- \cdot  \Bigg[ \frac{\partial \Lambda}{\partial \vec{q}_-} - \frac{d}{dt}\frac{ \partial \Lambda}{ \partial \dot{\vec{q}}_-} \Bigg]_{\epsilon =0} \Bigg\}  \nonumber \\
+&+ \Big[\vec{\eta}_+(t)\cdot  \vec{\pi}_-(t) + \vec{\eta}_-(t)\cdot \ \vec{\pi}_+(t) \Big]_{t=t_i}^{t_f} = 0,
+\end{align}
+where $\vec{\eta}_+\cdot \vec{\pi}_- = \sum_{i=1}^N \vec{\eta}_{+i} \vec{\pi}_{-i}$.  From the equality condition, $\vec{\eta}_- (t_f) = 0$, $\vec{\pi}_- (t_f) = 0$ and $\vec{\eta}_\pm(t_i) = 0$, the boundary terms all vanish.  Therefore, the action is stationary for any $\vec{\eta}_\pm(t)$ when the two variables $\vec{q}_\pm(t)$ solve 
+\begin{align} 
+\frac{d \vec{\pi}_{\mp}}{dt}  = \frac{ \partial \Lambda}{ \partial \vec{q}_\pm}.
+\end{align}
+In the $\vec{q}_{1,2}$ coordinates instead of the $\pm$ variables, the action is found by solving $d \vec{\pi}_{1,2}/dt  = \partial \Lambda/ \partial \vec{q}_{1,2}$ with conjugate momenta $\vec{\pi}_{1,2} = (-1)^{1,2} \partial \Lambda / \partial \dot{\vec{q}}_{1,2}$ as a function of $\vec{q}_{1,2}$ and $\dot{\vec{q}}_{1,2}$.
+In the physical limit ($\mathrm{PL}$), only the $ \partial \Lambda/ \partial \vec{q}_- = d \vec{\pi}_+/dt$ equation survives, such that 
+\begin{align}
+\frac{d}{dt} \vec{\pi} (\vec{q},\dot{\vec{q}}) = \Bigg[ \frac{\partial \Lambda}{\partial \vec{q}_-} \Bigg]_{\mathrm{PL}} = \frac{\partial \mathcal{L}}{\partial \vec{q}} + \Bigg[ \frac{\partial \mathcal{R} }{\partial \vec{q}_-}\Bigg]_{\mathrm{PL}}, \label{eq:trajectory}
+\end{align}
+with conjugate momenta 
+\begin{align}
+\vec{\pi} (\vec{q},\dot{\vec{q}}) = \Bigg[ \frac{\partial \Lambda}{\partial \dot{\vec{q}}_-} \Bigg]_{\mathrm{PL}} = \frac{\partial \mathcal{L}}{\partial \dot{\vec{q}}} + \Bigg[ \frac{\partial \mathcal{R}}{\partial \dot{\vec{q}}_-}\Bigg]_{\mathrm{PL}}. \label{eq:conjugatemomenta}
+\end{align}
+When $\mathcal{R} = 0$ and under the presence of conservative forces, the usual Euler-Lagrange equations are recovered.  A nonzero $\mathcal{R}$ is derived from non-conservative forces and modifies the trajectories of Eqs.~(\ref{eq:trajectory}) and~(\ref{eq:conjugatemomenta}).  In our special case, we are concerned with complex non-conservative forces.  In the case of complex $\mathcal{R}$, the action which defines a new Lagrangian, Eq.~(\ref{eq:action}), includes a line integral
+%\begin{align} 
+%\mathcal{R} (\vec{q}_a, \dot{\vec{q}}_a, \dot{\vec{q}}_+, \dot{\vec{q}}_-,t) =  \mathcal{Q} (\vec{q}_+, \vec{q}_-, \dot{\vec{q}}_+, \dot{\vec{q}}_-,t) + \mathcal{Q}^*(\vec{q}_+, \vec{q}_-, \dot{\vec{q}}_+, \dot{\vec{q}}_-,t),
+%\label{eq:newK}
+%\end{align}
+in which $\vec{q}_1$ and $\vec{q}_2$ paths are coupled to each other.  As we show in Section~\ref{sec:NLS} below, the complex conjugate of the functional terms in $\mathcal{L}$ are similarly necessary for solving the Euler-Lagrange equations with complex PDEs, such as the NLS equation.  
+In the physical limit, only the Euler-Lagrange equation for the $+$ variable survives.  Therefore, expanding the action in powers of $\vec{q}_-$ the equations of motion follow the variational principle:
+\begin{align}
+\Bigg[\frac{ \delta S[\vec{q}_{\pm}] }{\delta \vec{q}_- (t)}\Bigg]_{\mathrm{PL}} = 0.
+\label{eqs}
+\end{align}
+Only terms in the new action that are perturbatively linear in $\vec{q}_-$ contribute to physical forces.  In the following section, we formulate Hamilton's principle with initial conditions for systems described by complex PDEs.  
+
+\subsection{An Illustrative Example}
+In order to understand Galley's~\cite{Galley} new formulation, we consider a well-known second order differential equation of motion for the harmonic oscillator with a linear damping given by
+\begin{align}
+ \ddot{x} + 2\beta \dot{x} +w_0^2 x   = 0,
+ \label{ho}
+\end{align}
+where $w_0$ and $\beta$ are, respectively, frequency and damping parameter.  The conservative harmonic oscillator (Eq.~(\ref{ho}) with $\beta=0$) is derived by forming a Lagrangian 
+\begin{align}
+\mathcal{L} = \mathcal{T}  - \mathcal{V},
+\end{align}
+for the mass on the end of a spring wth kinetic energy, \JMR{$\mathcal{T} = m\dot{x}^2/2$} and potential energy, \JMR{$\mathcal{V} =kx^2/2$}.  Using the Lagrangian, we apply the Euler-Lagrange equations to find the equation of motion 
+\begin{align}
+\ddot{x} + w_0^2 x = 0,
+\end{align}
+where $w_0 = \sqrt{k/m}$.  This method works for the conservative system, but if we want to add the linear damping term, i.e. $2\beta \dot{x}$, we do not have a Lagrangian that can describe non-conservative forces.  Using Galley's approach, we consider the following new Lagrangian, given in the $\pm$ variables:
+\begin{align}
+\Lambda(x_{\pm}, \dot{x}_{\pm}) = \dot{x}_-  \dot{x}_+ -  w_0^2 x_+ x_-  + 2\beta \dot{x}_+x_-, 
+\label{newL}
+\end{align}
+where the first term is the kinetic energy, the second term is the potential energy and the third term is $\mathcal{R}$ containing all non-conservative forces.  The new Lagrangian Eq.~(\ref{newL}) is unique for terms linear in $x_-$ and its time derivatives, which do not contribute to physical forces.  With the new Lagrangian we can recast the Euler-Lagrange equations using Eqs.~(\ref{eqs}), or (\ref{eq:trajectory}) and (\ref{eq:conjugatemomenta}), which result in the standard equation of motion Eq.~(\ref{ho}), at the physical limit, where $x_+ \to x$ and $x_- \to 0$. 
+%\begin{align}
+%\ddot{x} + w_0^2 \dot{x} = - 2\beta \dot{x},
+%\end{align}
+%which is the harmonic oscillator equation with a linear damping force.  
+The key point is that these equations for dissipative motion are derived from the (new) Lagrangian Eq.~(\ref{newL}), and solved through a modified Euler-Lagrange formulation which results in equations of motion.  
+
+With the new Lagrangian Eq.~(\ref{newL}), we can use variational techniques with an ansatz, and find the equations of motion for the variational parameters.  In this example using an ansatz of the form $x = Ae^{wt}$ would recover the well-known solutions for underdamped ($w_0^2 > \beta^2$), overdamped ($w_0^2 < \beta^2$), and critically damped ($w_0^2 = \beta^2$) systems. 
+
+%To show the resulting solutions, we solve the new Euler-Lagrange equations are $\ddot{x}_{\pm} + w_0^2 \dot{x}_{\pm} = - 2\beta \dot{x}_{\pm}$.  The physical limit implies that $x_+$ is determined by the physical initial data, $x_+(t_i) = x_i$ and $\dot{x}_+ (t_i) = v_i$.  According the equality condition, $x_-$ is specified by final data, $x_-(t_f) = \dot{x}_-(t_f) = 0$.  Therefore, the resulting solutions are as expected for a homogeneous second order differential equation with a solutions of the form, $x_-=0$ and $x_+ =A \exp{-\beta t} \cos (\nu t - \phi)$ where $\nu = \sqrt{w_0^2 - \beta^2}$, and where $A$ and $\phi$ are constants determined by initial conditions, such that $A = \sqrt{x_i^2 + (v_i + \beta x_i)^2/\nu^2 and $\phi = -{\mathrm tan}^{-1} (
+% 
+% Now, we can introduce a very well informed ansatz for $i = 1,2$ coordinates
+%\begin{align}
+%q_i(t) = a_i\exp(-b_i t) \cos (w_i t + \phi) 
+%\label{hoAnsatz}
+%\end{align}
+
+ 
+
+
+%% Application of NCVA to NLS %%%% 
+\setstretch{1.3}
+\section{Derivation of Non-Conservative Variational \\ Method for Nonlinear Shr\"{o}dinger Equation}
+\label{sec:NLS}
+\setstretch{2}
+The NCVA formalism is extended for the NLS equation.  The one-dimensional (1D) NLS equation in non-dimensional form is~\cite{ref10} 
+\begin{equation}
+i u_t + \frac{1}{2} u_{xx} + g |u|^2 u  = 0,
+\label{eq:conservativeNLS}
+\end{equation}
+where $u(x,t)$ is the complex field and $g$ is the nonlinearity coefficient [$g=+1$ ($g=-1$) corresponding to attractive/focusing (repulsive/defocusing) nonlinearity].  This NLS is a conservative Hamiltonian PDE with  Lagrangian density~\cite{ref5, ref6, ref10} given by
+\begin{equation}
+%L = \frac{i}{2} (u u_t^* -u^* u_t ) - \frac{1}{2} |u_x|^2 + \frac{1}{2} g |u|^4.
+\mathcal{L} = \frac{i}{2} (u^* u_t - u u_t^*) + \frac{1}{2} |u_x|^2 - \frac{1}{2} g |u|^4,
+\label{eq:conLagragian}
+\end{equation}
+where $(\cdot)^*$ denotes complex conjugation.  We will adopt the following notation for clarity: densities are denoted with calligraphic symbols (cf.~$\mathcal{L}$), effective quantities integrated over all $x$ use standard symbols $L = \int_{-\infty}^{\infty} {\mathcal{L}}\,dx$.
+%Using the scanned notes and Kevrekidis~\cite{Kevrekidis2014} to use the perturbed Klein-Gordon equation for the NLS.  
+%The nonlinear Shr\"{o}dinger (NLS) equation has the Lagrangian given by:
+%The Lagrangian for the focusing NLS is given by~\cite{Anderson1983, Kivshar1994}: 
+%\begin{equation}
+%\mathcal{L} = -\frac{i}{2}(u^*u_t - u_t^* u) + \frac{1}{2} |u_x|^2 - \frac{1}{2}|u|^4.
+%\label{eq: LLagrangian}
+%\end{equation}
+The corresponding Euler-Lagrange equation for the conservative Lagrangian density is 
+\begin{equation}
+\frac{d}{dt} \Bigg( \frac{\partial L}{\partial u_t^*} \Bigg) = \frac{\partial L}{\partial u^*} - \frac{d}{dx} \Bigg( \frac{\partial L}{\partial u_x^*} \Bigg).
+\label{eq:E-L}
+\end{equation}
+We verify that the Lagrangian density Eq.~(\ref{eq:conLagragian}) indeed corresponds to the NLS Eq.~(\ref{eq:conservativeNLS}) by noticing that $-\frac{1}{2} |u|^4 = -\frac{1}{2} (u^*)^2 u u \;$ such that $d  (-\frac{1}{2} (u^*)^2 u u)/du^*$    $= -|u|^2 u$,  and the partial of $L$ with respect to $u_x^*$, comes only from the term $\frac{1}{2} |u_x|^2$.  Using these terms, Eq.~(\ref{eq:E-L}) becomes 
+\begin{align}
+%\frac{d}{dt} \Big( \frac{\partial \mathcal{L}}{\partial u_t^*} \Big) = \frac{d}{dt} (\frac{i}{2} u ) = \frac{i}{2} u_t &= \frac{\partial \mathcal{L}}{\partial u^*} - \frac{d}{dx} \Big( \frac{\partial \mathcal{L}}{\partial u_x^*} \Big) = -\frac{i}{2} u_t - \frac{1}{2} u_{xx} - |u|^2 u, \\
+\frac{i}{2} u_t &=  -\frac{i}{2} u_t - \frac{1}{2} u_{xx} - |u|^2 u, \\
+\frac{i}{2} u_t + \frac{i}{2} u_t &= - \frac{1}{2} u_{xx} - |u|^2 u,  \\
+i u_t + \frac{1}{2} u_{xx} + |u|^2 u &= 0 \label{eq:ooNLS},
+\end{align}
+and we recover the conservative focusing NLS Eq.~(\ref{eq:conservativeNLS}).  
+%Therefore, in our case:
+%\begin{align}
+%P_{u ^*} &= \frac{\partial \mathcal{L}}{\partial u_t^*} = \frac{i}{2} u, \\
+%\frac{dP_{u^*}}{dt} &=  \frac{\partial \mathcal{L}}{\partial u_t^*} = \frac{\delta \mathcal{L}}{\deltau^*}.
+%\end{align} 
+
+We are interested in non-conservative terms ($\mathcal{P}$) that may depend on the field $u$, its derivatives, and/or its complex conjugate.  The non-conservative NLS may be cast in the following general form:
+ \begin{equation}
+i u_t + \frac{1}{2} u_{xx} + g |u|^2 u  =  \mathcal{P}.
+\label{eq:nonconservativeNLS}
+\end{equation}
+For the variational formulation of non-conservative systems~\cite{Galley} we define coordinates $u_1$ and $u_2$ and construct the total Lagrangian:
+\begin{align}
+\mathcal{L}_T = \mathcal{L}_1- \mathcal{L}_2 + \mathcal{R},
+\label{eq:NCL}
+\end{align}
+where $\mathcal{L}_i \equiv \mathcal{L} (u_i,u_{i,t},u_{i,x},...,t)$ for $i=1,2$, correspond to the conservative Lagrangian densities for $u_1$ and $u_2$ as defined by Eq.~(\ref{eq:conLagragian}), and $\mathcal{R}$ contains the non-conservative forces originating from the term $\mathcal{P}$ in Eq.~(\ref{eq:conservativeNLS}).  The non-conservative part of the total Lagrangian~(\ref{eq:NCL}) is related to the term $\mathcal{P}$ in Eq.~(\ref{eq:nonconservativeNLS}) by
+\begin{align}
+\mathcal{P}= \left[ \frac{\partial \mathcal{R}}{\partial u_-^*} \right]_{\rm PL}.
+\end{align}
+It follows by construction that 
+\begin{align}
+\mathcal{R} = \mathcal{P}\, u_-^* + {\rm const},
+\end{align}
+where the constant of integration is with respect to $u_-^*$.
+
+We define a change of variables $u_{+} = (u_1 + u_2)/2$ and $u_{-} = u_1 - u_2$ strictly for convenience.  In the physical limit (PL) $u_+ \, \rightarrow \, u$ and $u_- \, \rightarrow 0$.   \JMR{Based on the equality conditions in Sec.~\ref{sec:NCVA}, $\vec{\eta}_- (t_f) = \vec{\pi}_- (t_f) = \vec{\eta}_\pm(t_i) = 0$, the boundary terms all vanish.}  The corresponding conjugate momenta are defined as in Sec.~\ref{sec:NCVA} and the equation of motion is
+%
+\begin{equation}
+\frac{\partial }{\partial t} \frac{\delta \mathcal{L}}{\delta u_t^*}=  \frac{\delta \mathcal{L}}{\delta u^*} + \left[ \frac{\delta \mathcal{R}}{\delta u_-^* }\right]_{\rm PL},
+\end{equation}
+%
+where $\delta$ denotes Fr\'{e}chet derivatives.  Therefore, the NCVA method recovers the Euler-Lagrange equations for the conservative terms and lumps all the non-conservative terms into $[ \delta \mathcal{R}/\delta u_-^* ]_{\rm PL}$.  The most crucial part of the NCVA method is constructing $\mathcal{R}$ in such a way that at the physical limit, we recover the non-conservative forces [$\mathcal{P}$ in Eq.~(\ref{eq:nonconservativeNLS})]
+
+\setstretch{1.3}
+\subsection{A Brief Example for Constructing $\mathcal{R}$}
+\setstretch{2}
+In the case of the NLS Eq.~(\ref{eq:nonconservativeNLS})
+%\begin{align}
+%i u_t + \frac{1}{2} u_{xx} + |u|^2 u &= K,
+%\label{dissNLS}
+%\end{align}
+where $\mathcal{P}$ is a dissipative non-conservative term i.e.~$\mathcal{P} = -i\kappa |u|^2u$~\cite{Cerda}.  The non-conservative force must be of the form  
+\begin{align}
+\frac{\partial \mathcal{R}}{\partial u_-^*}\Bigg|_{PL}  = (-i\kappa |u|^2u ).
+\label{eq:criteria}
+\end{align} 
+A possible choice is to use $\mathcal{R} = -i\kappa |u_+|^2u_+u_-^* + {\rm const}$ in which the non-conservative forces couple the two paths to each other:
+\begin{align}
+\mathcal{R} = - i\kappa |u_+|^2u_+u_-^* + i\kappa |u_+|^2u_+u_-,
+\end{align}
+satisfying the criteria in the physical limit in Eq.~(\ref{eq:criteria}).  
+
+\subsection{NCVA Recovery of NLS Equation}
+In order to showcase NCVA methodology and in particular the use of the $u_{1/2}$ and $u_{\pm}$ variables, let us solve the conservative NLS Eq.~(\ref{eq:NCL}) where $\mathcal{R} = 0$.  We begin with variables 
+\begin{align}
+u_1 &= \frac{(2u_+ + u_-)}{2}, \\ 
+u_2 &= \frac{(2u_+ - u_-)}{2}.
+% u_1^* &= \frac{(2u_+^* + u_-^*)}{2}, \\ 
+% u_2^* &= \frac{(2u_+^* - u_-^*)}{2}.
+ \end{align}
+Again, we can solve the total Lagrangian ($\mathcal{L} = \mathcal{L}_1 +\mathcal{L}_2$, where $\mathcal{R} = 0$) of Eq.~(\ref{eq:NCL}) in the $u_1$ and $u_2$ coordinate system and switch to the $u_+$ and $u_-$ variables:
+\begin{align}
+\mathcal{L} =& \frac{i}{2}(u_1u_{1,t}^* - u_{1,t}u_1^* - u_2u_{2,t}^* - u_{2,t}u_2^* ) + \frac{1}{2}(u_{1,x}u_{1.x}^* - u_{2.x}u_{2.x}^* -  u_1^2 u_1^{*2} + u_2^2 u_2^{*2} ), \nonumber  \\
+=& \frac{i}{2}\Bigg[\frac{( 2u_+ + u_-)}{2}\frac{(2u_{+,t}^* + u_{-,t}^*)}{2} -\frac{(2u_{+,t} + u_{-,t})}{2} \frac{(2u_+^* + u_-^*)}{2} \nonumber \\
+&- \frac{(2u_+ - u_-)}{2}\frac{(2u_{+,t}^* - u_{-,t}^*)}{2}  + \frac{(2u_{+,t} - u_{-,t})}{2} \frac{(2u_+^* -u_-^*)}{2}\Bigg] \nonumber \\  
+&+ \frac{1}{2} \frac{(2u_{+,x} + u_{-,x})}{2}\frac{(2u_{+,x}^* + u_{-,x}^*)}{2} -   \frac{1}{2} \frac{(2u_{+,x} - u_{-,x})}{2}\frac{(2u_{+,x}^* - u_{-,x}^*)}{2} \nonumber \\
+&+\frac{1}{2} \Bigg( \frac{(2u_+ - u_-)}{2} \frac{(2u_+^* - u_-^*)}{2} - \frac{(2u_+ + u_-)}{2} \frac{(2u_+^* + u_-^*)}{2}    \Bigg) \times \nonumber \\
+& \Bigg( \frac{(2u_+ - u_-)}{2} \frac{(2u_+^* - u_-^*)}{2} + \frac{(2u_+ + u_-)}{2} \frac{(2u_+^* + u_-^*)}{2}    \Bigg). 
+\end{align}
+The terms that survive are:
+\begin{align}
+\mathcal{L}  = &\frac{i}{2} \Bigg[u_-u_{+,t}^* + u_+u_{-,t}^* - u_{-,t}u_+^* - u_-^* u_{+,t} \Bigg] +  \frac{1}{2}   \Bigg[  u_{-,x}u_{+,x}^* + u_{+,x}u_{-,x}^*\Bigg] \nonumber \\
+&+ \frac{1}{4}  \Bigg[ \Big( -u_-u_+^* - u_+u_-^*\Big)\Big( 4u_+u_+^* + u_- u_-^* \Big) \Bigg] , \nonumber \\
+= & \frac{i}{2} \Bigg[u_-u_{+,t}^* + u_+u_{-,t}^* - u_{-,t}u_+^* - u_-^* u_{+,t} \Bigg] +  \frac{1}{2}   \Bigg[  u_{-,x}u_{+,x}^* + u_{+,x}u_{-,x}^*\Bigg] \nonumber \\
+&- u_+u_+^*u_-u_+^* -\frac{1}{4} u_- u_-^*u_-u_+^* - u_+u_-^*u_+u_+^* -\frac{1}{4} u_+u_-^*u_- u_-^*.  \label{eq:l}
+\end{align}
+Now take Eq.~(\ref{eq:l}) at the physical limit (PL),
+\begin{align}
+ \frac{\partial L}{\partial u_{-,t}^*} \Bigg|_{\mathrm{PL}} = \frac{i}{2} u_+ \Bigg|_{\mathrm{PL}} = \frac{i}{2} u.
+\end{align}
+The Euler-Lagrange equation can then be evaluated in the physical limit:
+\begin{align}
+\frac{d}{dt} \Big( \frac{\partial L}{\partial u_{-,t}^*} \Big) &= \frac{\partial L}{\partial u_-^*}\Bigg|_{\mathrm{PL}} - \frac{d}{dx} \Big( \frac{\partial L}{\partial u_{-,x}^*}\Bigg|_{\mathrm{PL}} \Big), \label{eq:ELPL} \\
+\frac{d}{dt} \Bigg(\frac{i}{2} u\Bigg) &= \Bigg[ -\frac{i}{2}u_{+,t} - u_+|u_+|^2-\frac{1}{4}u_-u_+^*u_-  -\frac{1}{4}u_+|u_-|^2  \Bigg]_{\mathrm{PL}} - \frac{d}{dx} \Bigg( \frac{1}{2} u_{+,x} \Bigg|_{\mathrm{PL}} \Bigg). \label{eq:PL}
+\end{align}
+The individual terms in Eq.~(\ref{eq:PL}) evaluated at the physical limit are:
+\begin{align}
+ \frac{d}{dt} \Big(\frac{i}{2} u \Big) &= \frac{i}{2} u_t, \nonumber \\
+ -\frac{i}{2}u_{+,t}\Big|_{PL} &= -\frac{i}{2}u_t, \nonumber \\
+- \frac{1}{4}u_-u_+^*u_-\Big|_{PL}  &= 0, \nonumber \\
+-\frac{1}{4}u_+|u_-|^2  & = 0, \nonumber \\
+-u_+|u_+|^2 &= -|u|^2 u, \nonumber \\
+ -\frac{d}{dx} \Bigg( \frac{1}{2} u_{+,x} \Bigg|_{PL} \Bigg) = -\frac{d}{dx} \Bigg( \frac{1}{2} u_{+,x} \Bigg|_{PL} \Bigg) &= - \frac{1}{2} u_{xx}. \nonumber
+\end{align}
+Plugging in all the physical limits into Eq.~(\ref{eq:PL}) one gets:
+\begin{align}
+\frac{i}{2} u_t =  -\frac{i}{2}u_t - |u|^2 u - \frac{1}{2} u_{xx}, \nonumber 
+\end{align}
+and we therefore arrive at the focusing NLS Eq.~(\ref{eq:conservativeNLS}).  Similar variational formulations can be applied to other PDE (or ODE) systems.  
+
+%The trick in deriving a NCVA method for the NLS is to construct the correct non-conservative forces, $\mathcal{R}$, such that 
+%\begin{align}
+%\frac{\partial R}{\partial u_-^*}\Bigg|_{PL} ,
+%\end{align}
+%is only dependent on linear $u_-^*$ terms.  
+
+
+%, in which  In the case of Xu and Coen~\cite{CoenXu} we have an equation 
+%\[ i u_t = -u_{xx} - |u|^2 u - i u + iS, \] and therefore we need \[ \frac{\partial R}{\partial u_-^*}\Bigg|_{PL} 
+% = (-iu + iS) \] 
+% where a good choice is $R = - i u_+ u_-^* + iSu_-^*$.  
+
+%%%% PVA %%%%%
+\setstretch{1.3}
+\section{Other Non-Conservative Methods}
+\setstretch{2}
+In this section, the methodologies of the standard perturbed variational approach~\cite{nonlinsc} and modified Kantorovitch methods~\cite{Cerda, Skarka:06, Skarka:10,Skarka:14} are compared to the NCVA method.
+
+\setstretch{1.3}
+\subsection{Perturbed Variational Approach (PVA) Formalism} \label{sec:PVA}
+
+\setstretch{2}
+%The NLS is a generic (normal form) PDE describing the conservative dynamics of envelope waves.  In non-dimensonal form the focusing NLS can be written as 
+%\begin{align}
+%i u_t + \frac{1}{2} u_{xx} + |u|^2 u = 0.,
+%\label{eq:NLS}
+%\end{align}
+%where $u(x,t)$ is the complex field.  The Lagrangian density for the NLS~\cite{ref5, ref6, ref10} 
+%\begin{equation}
+%%L = \frac{i}{2} (u u_t^* -u^* u_t ) - \frac{1}{2} |u_x|^2 + \frac{1}{2} g |u|^4.
+%\mathcal{L} = \frac{i}{2} (u^* u_t - u u_t^*) + \frac{1}{2} |u_x|^2 - \frac{1}{2}  |u|^4,
+%\label{eq:conLagragian1}
+%\end{equation}
+%where $(\cdot)^*$ denotes the complex conjugate.  
+We start with the conservative focusing NLS Eq.~(\ref{eq:conservativeNLS}) [$g = +1]$ and the Lagrangian density Eq.~(\ref{eq:conLagragian}).
+%
+For consistency of notation we will use calligraphic symbols (cf.~$\mathcal{L}$)
+to denote densities while their effective (integrated over all $x$) quantities
+we will use standard symbols. Namely ${L} = \int_{-\infty}^{\infty} {\mathcal{L}}\,dx$.
+%
+In the perturbed variational method, Eq.~(\ref{eq:conservativeNLS}) becomes a non-conservative modified NLS equation with the addition of non-conservative generalized force $\mathcal{P} = \epsilon \mathcal{Q}$, where $\epsilon$ \JMR{is a formal perturbation parameter}%is a formal, small, perturbation parameter ($|\epsilon| \ll 1$): 
+\begin{align}
+iu_t + \frac{1}{2} u_{xx} + |u|^2 u = \epsilon \mathcal{Q}(u,u_x, u_t,\ldots,x,t). 
+\label{eq:nonCNLS}
+\end{align}
+The Euler-Lagrange equation for the unperturbed ($\epsilon = 0$) NLS, Eq.~(\ref{eq:conservativeNLS}), is given by:
+\begin{align}
+\frac{\partial \bar{L}}{\partial \vec{p}} - \frac{d}{dt} \frac{\partial \bar{L}}{\partial \dot{\vec{p}}} = 0,
+\end{align}
+where $\bar{L}(\vec{p}) = \int\bar{ \mathcal{L}} dx$ where $\bar{\mathcal{L}} \equiv \mathcal{L} [ \bar{u}(x,t,\vec{p})]$ is the conservative Lagrangian Eq.~(\ref{eq:conLagragian}) evaluated on the chosen variational ansatz $\bar{u}$ containing a vector of variational parameters $\vec{p}$ and the over-dot denotes the derivative with respect to $t$.  The effective Lagrangian $\bar{\mathcal{L}}$ depends on $\bar{L}$, where we will use a bar over quantities that are evaluated at the variational ansatz. 
+To solve the Euler-Lagrange equation for the perturbed NLS, Eq.~(\ref{eq:nonCNLS}), we find the remainder of 
+\begin{align}
+ \frac{\partial \bar{L}_T}{\partial \vec{p}} - \frac{d}{dt} \frac{\partial \bar{L}_T}{\partial \dot{\vec{p}}} \ne 0,
+ \label{eq:nonEL}
+\end{align}
+which is nonzero for the total Lagrangian $\bar{L}_T = \bar{L} + \bar{L}_{\epsilon}$ with conservative terms $\bar{L}$ of the NLS Eq.~(\ref{eq:conservativeNLS}) and non-conservative terms $\bar{L}_{\epsilon},$ i.e. $\epsilon \mathcal{Q}(\bar{u},\bar{u}_x, \bar{u}_t,\ldots,x,t)$.
+The first term in the perturbed Euler-Lagrange equation, Eq.~(\ref{eq:nonEL}), for ansatz $\bar{u}$ is
+\begin{align}
+\frac{\partial \bar{L}_T}{\partial \vec{p}} =& \frac{\partial }{\partial \vec{p}} \int_{-\infty}^{\infty} \bar{L}_T dx, \nonumber \\
+=& \int_{-\infty}^{\infty} \Bigg[ \frac{\partial \bar{L}_T}{\partial \bar{u}}\frac{\partial \bar{u}}{\partial \vec{p}}  + \frac{\partial \bar{L}_T}{\partial \bar{u}_t}\frac{\partial \bar{u}_t}{\partial \vec{p}} + \frac{\partial \bar{L}_T}{\partial \bar{u}_x}\frac{\partial \bar{u}_x}{\partial \vec{p}} + \frac{\partial \bar{L}_T}{\partial \bar{u}^*}\frac{\partial \bar{u}^*}{\partial \vec{p}}  + \frac{\partial \bar{L}_T}{\partial \bar{u}_t^*}\frac{\partial \bar{u}_t^*}{\partial \vec{p}} + \frac{\partial \bar{L}_T}{\partial \bar{u}_x^*}\frac{\partial \bar{u}_x^*}{\partial \vec{p}} \Bigg] dx, \nonumber \\
+=& \int_{-\infty}^{\infty}  \Bigg[  \frac{\partial \bar{L}_T}{\partial \bar{u}} \frac{\partial \bar{u}}{\partial \vec{p}} - \frac{\partial}{\partial x} \frac{\partial \bar{L}_T}{\partial \bar{u}_x} \frac{\partial \bar{u}}{\partial \vec{p}}  + \frac{\partial \bar{L}_T}{\partial \bar{u}^*} \frac{\partial \bar{u}^*}{\partial \vec{p}} - \frac{\partial}{\partial x} \frac{\partial \bar{L}_T}{\partial \bar{u}_x^*} \frac{\partial \bar{u}^*}{\partial \vec{p}}  \Bigg] dx. \nonumber
+\end{align}
+The second term of the perturbed Euler-Lagrange Eq.~(\ref{eq:nonEL}), yields 
+\begin{align}
+\frac{d}{dt} \Bigg( \frac{\partial \bar{L}_T}{\partial \dot{\vec{p}}} \Bigg) =& \int_{-\infty}^{\infty} \frac{\partial}{\partial t} \Bigg[ \frac{\partial \bar{L}_T}{\partial \bar{u}_t} \frac{\partial \bar{u}_t}{\partial \dot{\vec{p}}} + \frac{\partial \bar{L}_T}{\partial \bar{u}_t^*} \frac{\partial \bar{u}_t^*}{\partial \dot{\vec{p}}} \Bigg] dx, \nonumber \\
+=& \int_{-\infty}^{\infty} \Bigg[ \frac{\partial }{\partial t} \Big( \frac{\partial \bar{L}_T}{\partial \bar{u}_t} \Big) \frac{\partial \bar{u}}{\partial \vec{p}} + \frac{\partial \bar{L}_T}{\partial \bar{u}_t}\frac{\partial }{\partial t} \Big( \frac{\partial \bar{u}}{\partial \vec{p}} \Big) 
++  \frac{\partial }{\partial t} \Big( \frac{\partial \bar{L}_T}{\partial \bar{u}_t^*} \Big) \frac{\partial \bar{u}^*}{\partial \vec{p}} + \frac{\partial \bar{L}_T}{\partial \bar{u}_t^*}\frac{\partial }{\partial t} \Big( \frac{\partial \bar{u}^*}{\partial \vec{p}} \Big) \Bigg]dx, \nonumber \\
+=& \int_{-\infty}^{\infty} \Bigg[ \frac{\partial }{\partial t} \Big( \frac{\partial \bar{L}_T}{\partial \bar{u}_t} \Big) \frac{\partial \bar{u}}{\partial \vec{p}} +  \frac{\partial }{\partial t} \Big( \frac{\partial \bar{L}_T}{\partial \bar{u}_t^*} \Big) \frac{\partial \bar{u}^*}{\partial \vec{p}}  \Bigg]dx \nonumber 
+\end{align}
+where the only term with $\dot{p}$ is $u_t$.
+Therefore, by combining the above two terms in Eq.~(\ref{eq:nonEL}), we obtain
+\begin{align}
+ \frac{\partial \bar{L}_T}{\partial \vec{p}} - \frac{d}{dt} \Bigg( \frac{\partial \bar{L}_T}{\partial \dot{\vec{p}}} \Bigg)  =& \int_{-\infty}^{\infty} \frac{\partial \bar{u}}{\partial \vec{p}} \Bigg[ \frac{\partial \bar{L}_T}{\partial \bar{u}} - \frac{\partial }{\partial x}\frac{\partial \bar{u}}{\partial \bar{u}_x} - \frac{\partial}{\partial t} \Big( \frac{\partial \bar{L}_T}{\partial \bar{u}_t} \Big) \Bigg]  \nonumber \\
+ &+ \frac{\partial \bar{u}^*}{\partial \vec{p}} \Bigg[\frac{\partial \bar{L}_T}{\partial \bar{u}^*} - \frac{\partial }{\partial x}\frac{\partial \bar{u}^*}{\partial \bar{u}_x^*} - \frac{\partial}{\partial t} \Big( \frac{\partial \bar{L}_T}{\partial \bar{u}_t^*} \Big) \Bigg] dx. \nonumber
+\end{align}
+Using only the conservative term in the Lagrangian $\bar{L}_T$, the solution to the unperturbed NLS, Eq.~(\ref{eq:conservativeNLS}), is 
+\begin{align}
+ \frac{\partial \bar{L}}{\partial \vec{p}} &- \frac{d}{dt} \Bigg(\frac{\partial \bar{L}}{\partial \dot{\vec{p}}}\Bigg) = 0   \nonumber \\
+ =& \int_{-\infty}^{\infty} \frac{\partial \bar{u}}{\partial \vec{p}} \Bigg[ \frac{\partial \bar{L}}{\partial \bar{u}} - \frac{\partial }{\partial x}\frac{\partial \bar{u}}{\partial \bar{u}_x} - \frac{\partial}{\partial t} \Big( \frac{\partial \bar{L}}{\partial \bar{u}_t} \Big) \Bigg]  + \frac{\partial \bar{u}^*}{\partial \vec{p}} \Bigg[\frac{\partial \bar{L}}{\partial \bar{u}^*} - \frac{\partial }{\partial x}\frac{\partial \bar{u}^*}{\partial \bar{u}_x^*} - \frac{\partial}{\partial t} \Big( \frac{\partial \bar{L}}{\partial \bar{u}_t^*} \Big) \Bigg] dx. \nonumber \\
+\end{align}
+Now, using only the non-conservative term in the Lagrangian $\bar{L}_T$, the solution to the perturbed NLS Eq.~(\ref{eq:nonCNLS}) is 
+\begin{align} 
+ \frac{\partial \bar{L}_{\epsilon}}{\partial \vec{p}} &- \frac{d}{dt} \frac{\partial \bar{L}_{\epsilon}}{\partial \dot{\vec{p}}}    \nonumber \\
+ &= \int_{-\infty}^{\infty} \frac{\partial \bar{u}}{\partial \vec{p}} \Bigg[ \frac{\partial \bar{L}_{\epsilon}}{\partial \bar{u}} - \frac{\partial }{\partial x}\frac{\partial \bar{u}}{\partial \bar{u}_x} - \frac{\partial}{\partial t} \Big( \frac{\partial \bar{L}_{\epsilon}}{\partial \bar{u}_t} \Big) \Bigg]  + \frac{\partial \bar{u}^*}{\partial \vec{p}} \Bigg[\frac{\partial \bar{L}_{\epsilon}}{\partial \bar{u}^*} - \frac{\partial }{\partial x}\frac{\partial \bar{u}^*}{\partial \bar{u}_x^*} - \frac{\partial}{\partial t} \Big( \frac{\partial \bar{L}_{\epsilon}}{\partial \bar{u}_t^*} \Big) \Bigg] dx, \nonumber \\
+  &= \int_{-\infty}^{\infty} \frac{\partial \bar{u}}{\partial \vec{p}} \Bigg[  \epsilon \bar{\mathcal{Q}}^* \Bigg]  + \frac{\partial \bar{u}^*}{\partial \vec{p}} \Bigg[ \epsilon \bar{\mathcal{Q} }\Bigg] dx, \nonumber \\
+ &= \epsilon \int_{-\infty}^{\infty} \Big( \frac{\partial \bar{u}}{\partial \vec{p}} \bar{ \mathcal{Q}}^* + \bar{\mathcal{Q}} \frac{\partial \bar{u}^*}{\partial \vec{p}} \Big)dx. \nonumber
+\end{align}
+%Now, we add the perturbation such that the right hand side minus the left hand side is equal to 
+%\begin{align}
+%\epsilon \int_{-\infty}^{\infty} \Big( \frac{\partial \bar{u}}{\partial \vec{p}} R^* + R \frac{\partial \bar{u}^*}{\partial \vec{p}} \Big)dx.
+%\label{eq:pvaRHS}
+%\end{align}
+The perturbed variational approximation gives the following perturbed Euler-Lagrange equation combining the $\bar{L}$ and $\bar{L}_{\epsilon}$ terms:
+\begin{align}
+ \frac{d}{dt} \frac{\partial \bar{L}}{\partial \dot{\vec{p}}} - \frac{\partial \bar{L}}{\partial \vec{p}}  =  \int_{-\infty}^{\infty} \Big( \bar{\mathcal{P}}^*\frac{\partial \bar{u}}{\partial \vec{p}}  + \bar{\mathcal{P}} \frac{\partial \bar{u}^*}{\partial \vec{p}} \Big)dx,
+\label{eq:pvaRHS}
+\end{align}
+where we substituted $\bar{\mathcal{P}} = \epsilon \bar{\mathcal{Q}}$~\cite{Malomed2002}.
+The right hand side is equivalent to the following modified Kantorovitch [see Eq.~(\ref{eq:Kantorovitch}) below] method such that 
+\begin{align}
+  \int_{-\infty}^{\infty} \Big( \bar{\mathcal{P}}^*\frac{\partial \bar{u}}{\partial \vec{p}}  + \bar{\mathcal{P}} \frac{\partial \bar{u}^*}{\partial \vec{p}} \Big)dx \equiv 2 \mathrm{Re} \int \bar{\mathcal{P}} \frac{\partial \bar{u}^*}{\partial \vec{p}} dx.
+ \end{align}
+
+%%%%% KVA%%%%  
+\setstretch{1.3}
+\subsection{Modified Kantorovitch Method Formalism}  \label{sec:KVA}
+\setstretch{2}
+As developed in Cerda et al.~\cite{Cerda}, a variational technique is outlined to deal with nonlinear pulse propagation.  Ref.~\cite{Cerda} uses a generalization of the Kantorovitch method for non-conservative systems in the NLS equation.  The total Lagrangian is the sum of the conservative Lagrangian $L$ and a non-conservative Lagrangian, $L_{\epsilon}$: 
+\begin{align}
+L_T(u, u^*, x, t, u_x, u_t, u_x^*, u_t^*, ...,etc) = L + L_{\epsilon}  ,
+\end{align}
+where $u(x,t)$ represents the soliton.  In the method, the function $u(x,t)$ must render the Lagrangian integral stationary as expressed by Hamilton's principle:
+\begin{align}
+\delta \Bigg[ \iint L_T dx dt \Bigg] = \delta \Bigg[ \iint (L + L_{\epsilon})dxdt \Bigg] = 0,
+\end{align} 
+such that the Euler-Lagrange equations of the system are given by
+\begin{align}
+\frac{\delta L_T}{\delta u_i} = \frac{d}{dt} \frac{\partial L}{\partial (\frac{\partial u_i}{\partial t})} + \frac{d}{dx} \frac{\partial L}{\partial (\frac{\partial u_i}{\partial x})} - \frac{\partial L}{\partial u_i} = \mathcal{P}_i .
+\end{align}
+The non-conservative dynamics are taken into account through $\mathcal{P}_i$:
+\begin{align}
+\mathcal{P}_i = \frac{\partial L_{\epsilon}}{\partial u_i } - \frac{d}{dt} \frac{\partial L_{\epsilon}}{\partial (\frac{\partial u_i}{\partial t})} - \frac{d}{dx} \frac{\partial L_{\epsilon}}{\partial (\frac{\partial u_i}{\partial x})},
+\end{align}
+where the index $i$ is either 1 or 2 with $u_1 = u$ and $u_2 = u^*$.  
+The approximate Euler-Lagrangian equations for non-conservative systems uses a generalization of the Rayleigh-Ritz method known as the Kantorovitch method assuming the extremum of the variational integral of the Lagrangian function is expressed as 
+\begin{align}
+u(x,t) = f(b_1(t), b_2(t), ..., b_N(t), x),
+\end{align}
+where $f$ is an ansatz.  Through the substitution of the ansatz $f$, $\bar{L}  = \int \bar{\mathcal{L}} dx$, the Euler-Lagrange equations for the generalized function parameters, $\vec{p}$, are defined as follows, 
+\begin{align}
+\frac{d}{dt} \frac{\partial \bar{L} }{\partial \dot{\vec{p}}} - \frac{\partial \bar{L}  }{\partial \vec{p} } = \int \mathcal{P} \frac{\partial u}{\partial b_i} dx. 
+\end{align}
+Since $u$ and its complex conjugate $u^*$ are linearly independent and the Euler-Lagrangian equations are related by
+\begin{align}
+\frac{\delta L}{\delta u^* } = \Bigg(\frac{\delta L }{\delta u}\Bigg)^* = \mathcal{P},
+\end{align}
+the modified Kantorovitch method~\cite{ref3} yields
+\begin{align}
+\frac{d}{dt} \frac{\partial \bar{L} }{\partial \dot{\vec{p}}} - \frac{\partial \bar{L}  }{\partial \vec{p}} = 2 \mathrm{Re} \int \mathcal{P} \frac{\partial u^*}{\partial \vec{p}} dx. 
+\label{eq:Kantorovitch}
+\end{align}
+The Kantorovitch method has been successfully applied to bright
+soliton solutions for the cubic-quintic Ginzburg-Landau equation~\cite{Skarka:06} and to vortical solutions~\cite{Skarka:10,Skarka:14}.
+
+%%%% Equivalence Proof%%%%
+\setstretch{1.3}
+\subsection{Equivalence Proof} \label{sec:Equivalence}
+
+\setstretch{2}
+The following proof will illustrate the NCVA is equivalent to the PVA and modified KVA method.  Given a non-conservative NLS Eq.~(\ref{eq:nonconservativeNLS}), 
+%\begin{align}
+%i u_t + \frac{1}{2} u_{xx} + |u|^2 u &= Q, 
+%\label{eq: NCNLS}
+%\end{align}
+where $\mathcal{P}$ is assumed complex, then $\mathcal{R}$ is 
+%constructed in such a way that  
+%\begin{align}
+%\frac{\partial \mathcal{P}}{\partial u_-^*} \Bigg|_{\mathrm{PL}} = \mathcal{P}.
+%\end{align}
+%The functional $\mathcal{R}$ is 
+evaluated at the variational ansatz as 
+\begin{equation}
+\bar{\mathcal{P}} = \left[ \frac{\partial \bar{\mathcal{R}}}{\partial {\bar{u}}_-^*} \right]_{\rm PL}.
+\label{eq:criteria1}
+\end{equation}
+%For any polynomial non-conservative terms:
+%\begin{align}
+%Q = Q(u_+, u_+^*, u_-, u_-^*, u_{+,t},\ldots), 
+%\end{align}
+%$R$ is constructed as 
+%\begin{align}
+%R = \int Q(u_+, u_+^*, u_-, u_-^*, u_{+,t},\ldots) du_-^* +  \int Q^*(u_+, u_+^*, u_-, u_-^*, u_{+,t},\ldots) du_- ,
+%\end{align}
+%such that $R$ is simply integrated as 
+%\begin{align}
+%R = Q(u_+, u_+^*, u_-, u_-^*, u_{+,t},\ldots) u_-^*  +  Q^*(u_+, u_+^*, u_-, u_-^*, u_{+,t},\ldots) u_-.
+%\end{align}
+The formulations require that the variational parameters are real for the ansatz.  Therefore, we ensure real values for the parameters and the solution satisfies Eq.~(\ref{eq:criteria1}) such that  
+\begin{equation}
+\bar{\mathcal{R}} =
+\bar{\mathcal{P}}(\bar{u}_{\pm}, \bar{u}_{\pm}^*,\bar{u}_{\pm,t},\ldots) \; 
+\bar{u}_-^*  +  c.c.,
+%\bar{\mathcal{P}}^*(u_{\pm}, u_{\pm}^*, u_{\pm,t},\ldots) \; u_-.
+\end{equation}
+where $c.c.$~stands for complex conjugate.  In order to be concise, we denote $p$ for a single variational parameter (i.e., an entry of $\vec{p}$).  All equations with the symbol $p$ are a set of coupled equations for each of the entires $p$ in $\vec{p}$.  
+%$Q = Q(u_+, u_+^*, u_-, u_-^*, u_{+,t},\ldots)$ then we can prove the NCVA is equivalent to the perturbed variational approximation:
+
+Given a set of real-valued parameters $p$ of the ansatz defined in the $\pm$ coordinate space such that $p_+ = (p_1 + p_2)/2$ and $p_- = (p_1 - p_2)$, then we show that the NCVA method is equivalent to the PVA and KVA:
+\begin{align}
+ \bar{P}  = \int_{-\infty}^{+\infty} \bar{\mathcal{P}} dx = \int_{-\infty}^{\infty} \left[\frac{\partial \bar{\mathcal{R}}}{\partial \bar{u}_-^* } \right]_{\rm PL} dx,
+\end{align} 
+ projected into the ansatz such that 
+%\begin{align}
+%\bar{P} = \int_{-\infty}^{\infty} \bar{\mathcal{P}} \; dx &=\int \frac{\partial \bar{\mathcal{R}}}{\partial \vec{p}_-^* } \Bigg|_{PL} dx, \nonumber \\
+% & = \int  \frac{\partial}{\partial \vec{p}_-^*} \Big(Q u_-^*\Big)  + \frac{\partial}{\partial \vec{p}_-^*} \Big(Q^* u_-\Big) dx, \nonumber \\
+%&= \int \frac{\partial u_-^* Q }{\partial \vec{p}_-^* }  + \frac{\partial u_- Q^* }{\partial \vec{p}_-^* }  \Bigg|_{PL} dx, \nonumber \\
+%&=  \int Q \frac{\partial  u_-^*}{\partial \vec{p}_-^* } \Bigg|_{PL} + Q^* \frac{\partial  u_-^*}{\partial \vec{p}_- } \Bigg|_{PL} dx, \nonumber \\
+%&= \int Q \frac{\partial  u^*}{\partial \vec{p} } + Q^* \frac{\partial  u}{\partial \vec{p}^*} dx.  
+%\label{eq:NCVAequiv}
+%\end{align}
+ \begin{eqnarray}
+\bar{P} &=& \int_{-\infty}^{\infty}  \left[\frac{\partial}{\partial p_-^*} \left(\bar{\mathcal{P}}   \bar{u}_-^* \right)  +
+          \frac{\partial}{\partial p_-^*} \left(\bar{\mathcal{P}}^* \bar{u}_-   \right) \right]_{\rm PL} dx, \nonumber  \\
+          &=& \int_{-\infty}^{\infty} \left[\bar{\mathcal{P}} \frac{\partial \bar{u}_-^* }{\partial p_-^*} + \bar{u}_-^* \frac{\partial \bar{\mathcal{P}}  }{\partial p_-^*}  + \bar{\mathcal{P^*}} \frac{\partial \bar{u}_- }{\partial p_-^*} + \bar{u}_- \frac{\partial \bar{\mathcal{P^*}}  }{\partial p_-^*}    \right]_{\rm PL} dx, \nonumber \\
+%&=& \int_{-\infty}^{\infty} \frac{\partial u_-^* Q }{\partial p_-^* }  + \frac{\partial u_- Q^* }{\partial p_-^* }  \Bigg|_{\rm PL} dx, \nonumber \\
+%&=&  \int_{-\infty}^{\infty} Q \frac{\partial  u_-^*}{\partial p_-^* } \Bigg|_{\rm PL} + Q^* \frac{\partial  u_-^*}{\partial p_- } \Bigg|_{\rm PL} dx, \nonumber \\
+&=& \int_{-\infty}^{\infty} \left(
+\bar{\mathcal{P}}^* \frac{\partial  \bar{u}}{\partial p^*}
++
+\bar{\mathcal{P}} \frac{\partial  \bar{u}^*}{\partial p }
+\right) dx, \label{eq:NCVAequiv}
+\end{eqnarray}
+since $[\bar{u}_-^*]_{\rm PL} = [\bar{u}_-]_{\rm PL} = 0$.
+
+The non-conservative integral in the Euler-Lagrange equation derived in Eq.~(\ref{eq:NCVAequiv}) is equivalent to the perturbed variational approximation in Eq.~(\ref{eq:pvaRHS}), which is equivalent to the modified Kantorovitch method~\cite{Cerda}:
+\begin{align}
+ \int_{-\infty}^{\infty} \left( \bar{\mathcal{P}}^* \frac{\partial  \bar{u}}{\partial p^* } + \bar{\mathcal{P}} \frac{\partial  \bar{u}^*}{\partial p} \right) dx   = 2 \mathrm{Re} \int_{-\infty}^{\infty} \bar{\mathcal{P}} \frac{\partial  \bar{u}^*}{\partial p }dx.
+\end{align}
+Therefore, the perturbed and modified Kantorovitch variational approximation methods are equivalent to the NCVA for complex partial differential equations derived from Hamilton's principle as an initial value problem with two sets of variables $u_1$ and $u_2$.  The next chapter will present examples of the non-conservative variational approximation applied to dissipative dynamical systems. 
+
+\clearpage
+
+
+%\newpage
+%\bibliographystyle{aip}
+%\bibliography{references}
+
+
+%\end{document}
+
+%\subsection{Non-conservative Variational Approach (NCVA)}
+%We started by defining the $u_1$ and $u_2$ ansatz 
+%\begin{align}
+%u_1 &= a_1 \mathrm{sech}(a_1(x-\xi_1))e^{i(c_1 (x-\xi_1)+b_1)}, \\
+%u_2 &= a_2 \mathrm{sech}(a_2(x-\xi_2))e^{i(c_2 (x-\xi_2)+b_2)}.
+%\end{align}
+%According to the non-conservative variational method the Lagrangian is $\mathcal{L} = L_1 - L_2 + R$ where 
+%\begin{align}
+%L_1 &= \frac{i}{2} \Big(u_1 u_{1,t}^* - u_1^* u_{1,t}\Big) + \frac{1}{2} |u_{1,x}|^2 - \frac{1}{2}|u_1|^4, \\
+%L_2 &= \frac{i}{2} \Big(u_2 u_{2,t}^* - u_2^* u_{2,t}\Big) + \frac{1}{2} |u_{2,x}|^2 - \frac{1}{2}|u_2|^4, \\
+%R &= 4i\epsilon u_+u_-^* =  4i \epsilon \frac{(u_1 + u_2)}{2}(u_1 - u_2)^*  = 2i\epsilon (u_1u_1^* - u_2 u_2^* + u_2u_1^* - u_1 u_2^*)
+%\end{align}
+%Note, it is very important to construct $R$ correctly for the soliton dynamics.  Plugging the ansatz into $L_1$ and $L_2$:
+%\begin{align}
+%L_1 =& a_1^2 \mathrm{sech}^2(a_1(x-\xi_1))[\dot{c_1}(x-\xi_1)-c_1\dot{\xi_1} + \dot{b_1}] + \frac{1}{2}a_1^4 \mathrm{sech}^2(a_1(x-\xi_1))\mathrm{tanh}^2(a_1(x-\xi_1)) \nonumber \\
+%&+\frac{1}{2}a_1^2c_1^2 \mathrm{sech}^2(a_1(x-\xi_1))-\frac{1}{2}a_1^4 \mathrm{sech}^4(a_1(x-\xi_1)), \\
+%L_2 =& a_2^2 \mathrm{sech}^2(a_2(x-\xi_2))[\dot{c_2}(x-\xi_2)-c_2\dot{\xi_2} + \dot{b_2}] + \frac{1}{2}a_2^4 \mathrm{sech}^2(a_2(x-\xi_2))\mathrm{tanh}^2(a_2(x-\xi_2)) \nonumber \\
+%&+\frac{1}{2}a_2^2c_2^2 \mathrm{sech}^2(a_2(x-\xi_2))-\frac{1}{2}a_2^4 \mathrm{sech}^4(a_2(x-\xi_2)).  
+%\end{align}
+%Next we find $\bar{L} = \int\mathcal{L}dx = \int L_1 dx - \int L_2 dx + \int R dx$, which for $L_1$ and $L_2$ is the same as with the VA.  The first two integrals are
+%\begin{align}
+%\int_{-\infty}^{\infty} L_1 dx &= 2\dot{b_1}a_1 - \frac{1}{3}a_1^3 + c_1^2 a_1 - 2c_1 \dot{\xi_1}a_1,  \\
+%\int_{-\infty}^{\infty} L_2 dx &= 2\dot{b_2}a_2 - \frac{1}{3}a_2^3 + c_2^2 a_2 - 2c_2 \dot{\xi_2}a_2.
+%\end{align}
+%The solution for the non-conservative loss term is an integral of the form
+%\begin{align}
+%\int_{-\infty}^{\infty} R dx &=  2i\epsilon \int_{-\infty}^{\infty} [a_1^2 \mathrm{sech}^2(a_1(x-\xi_1))-a_2^2\mathrm{sech}^2(a_2(x-\xi_2))] dx+2i\epsilon \int_{-\infty}^{\infty} (u_2u_1^* - u_1u_2^*) dx.
+%\end{align}
+%The first term is integrable, however, the second term I believe goes to zero (???).  Therefore, the integral is simply
+%\begin{align}
+%\int_{-\infty}^{\infty} R dx =   2i\epsilon (2a_1 - 2a_2) =  4i\epsilon(a_1 - a_2).
+%\end{align}
+%The total Lagrangian:
+%\[ \bar{L} = 2\dot{b_1}a_1 - \frac{1}{3}a_1^3 + c_1^2 a_1 - 2c_1 \dot{\xi_1}a_1 - 2\dot{b_2}a_2 + \frac{1}{3}a_2^3 - c_2^2 a_2 + 2c_2 \dot{\xi_2}a_2 +4i\epsilon(a_1 - a_2). \]
+%For all the parameters I made the following substitutions into the expression for the total Lagrangian:
+%\[\begin{cases}
+%a_1 = \frac{(2a_+ + a_-)}{2} \\
+%a_2 = \frac{(2a_+ - a_-)}{2} \\
+%b_1 = \frac{(2b_+ + b_-)}{2} \\
+%b_2 = \frac{(2b_+ - b_-)}{2} \\
+%c_1 = \frac{(2c_+ + c_-)}{2} \\
+%c_2 = \frac{(2c_+ - c_-)}{2} \\
+%\xi_1 = \frac{(2\xi_+ + \xi_-)}{2} \\
+%\xi_2 = \frac{(2\xi_+ - \xi_-)}{2} 
+%\end{cases}  \\
+%\begin{cases}
+%\dot{a}_1 = \frac{(2\dot{a}_+ + \dot{a}_-)}{2} \\
+%\dot{a}_2 = \frac{(2\dot{a}_+ - \dot{a}_-)}{2} \\
+%\dot{b}_1 = \frac{(2\dot{b}_+ +\dot{b}_-)}{2} \\
+%\dot{b}_2 = \frac{(2\dot{b}_+ - \dot{b}_-)}{2} \\
+%\dot{c}_1 = \frac{(2\dot{c}_+ + \dot{c}_-)}{2} \\
+%\dot{c}_2 = \frac{(2\dot{c}_+ - \dot{c}_-)}{2} \\
+%\dot{\xi}_1 = \frac{(2\dot{\xi}_+ + \dot{\xi}_-)}{2} \\
+%\dot{\xi}_2 = \frac{(2\dot{\xi}_+ - \dot{\xi}_-)}{2} 
+%\end{cases} \]
+%
+%Therefore, the full expansion with similar terms grouped is 
+%\begin{align} \bar{L} =& 2\Bigg[  \Bigg(\frac{2\dot{b}_+ +\dot{ b}_-}{2}\Bigg)\Bigg(\frac{2a_+ + a_-}{2}\Bigg) - \Bigg(\frac{2\dot{b}_+ - \dot{b}_-}{2}\Bigg)\Bigg(\frac{2a_+ - a_-}{2}\Bigg) \Bigg] \nonumber \\
+%&+ \frac{1}{3} \Bigg[ \Bigg(\frac{2a_+ - a_-}{2} \Bigg)^3 - \Bigg(\frac{2a_+ - a_-}{2} \Bigg)^3   \Bigg] \nonumber \\
+%&+ \Bigg[ \Bigg(\frac{2c_+ + c_-}{2} \Bigg)^2\Bigg(\frac{2a_+ + a_-}{2} \Bigg) -    \Bigg(\frac{2c_+ - c_-}{2} \Bigg)^2\Bigg(\frac{2a_+ -a_-}{2} \Bigg)  \Bigg] \nonumber \\
+%&+ 2 \Bigg[\Bigg(\frac{2c_+ - c_-}{2} \Bigg)\Bigg(\frac{2\dot{\xi}_+ - \dot{\xi}_-}{2} \Bigg)\Bigg(\frac{2a_+ + a_-}{2} \Bigg) - \Bigg(\frac{2c_+ + c_-}{2} \Bigg)\Bigg(\frac{2\dot{\xi}_+ + \dot{\xi}_-}{2} \Bigg)\Bigg(\frac{2a_+ + a_-}{2} \Bigg) \Bigg]  \nonumber \\
+%&+ 4i\epsilon a_-
+%\end{align} 
+%From the $L_1$ and $L_2$ parts we should recover the standard soliton evolution equations i.e. VA of NLS with the following equations of motion (ODEs):
+%\[\begin{cases}
+%\dot{a}  = 0 \\
+%\dot{b}  = \frac{1}{2}a^2 + \frac{1}{2} c^2 \\
+%\dot{c} = 0  \\
+%\dot{\xi} = c
+%\end{cases}\] 
+%From the $R$ part, we should recover the perturbation effect for numerical comparison.
+%
+%Now we are set to solve the Euler-Lagrangian equation using $\bar{L}$ 
+%\[ \frac{\partial \bar{L}}{\partial \vec{p}_i} - \frac{d}{dt} \Bigg( \frac{\partial \bar{L} }{\partial\dot{\vec{p}}_i}\Bigg) = 0 \]
+%where we define parameters $p_a$, $p_b$, $p_c$, and $p_{\xi}$.  The difference in the non-conservative method using the Euler-Lagrange equations is we must take the derivatives with respect to $a_-$, $b_-$, $c_-$, and $\xi_-$, respectively and evaluate at the physical limit.  For example, with regard to the amplitude parameter $a$ the Euler-Lagrangian partial derivatives are
+%\begin{align}
+% p_a &= \frac{\partial L}{\partial \vec{p}_a} = \frac{\partial \bar{L}}{\partial \dot{a}_-} \Bigg|_{PL}, \\
+% \dot{\vec{p}}_a &= \frac{\partial \bar{L}}{\partial a_-} \Bigg|_{PL}, 
+%\end{align}
+%such that the Euler-Lagrangian can be defined as 
+%\[ \dot{\vec{p}}_a - \frac{d}{dt} p_a = 0.\] 
+%The Euler-Lagrangian for the amplitude parameter $a$ is given by
+%\begin{align}
+%p_a =& \frac{\partial \bar{L}}{\partial \dot{a}_-} \Bigg|_{PL} = 0 \\
+% \dot{\vec{p}}_a =& \frac{\partial \bar{L}}{\partial a_-} \Bigg|_{PL} \nonumber \\
+%  =& \Bigg[ 2\Bigg(\frac{1}{2} \Bigg)\Bigg(\frac{2\dot{b}_+ +\dot{ b}_-}{2}\Bigg) + 2\Bigg(\frac{1}{2}\Bigg) \Bigg(\frac{2\dot{b}_+ -\dot{ b}_-}{2}\Bigg) - \Bigg( \frac{1}{2} \Bigg)\Bigg(\frac{2a_+ - a_-}{2} \Bigg)^2 - \Bigg( \frac{1}{2} \Bigg)\Bigg(\frac{2a_+ + a_-}{2} \Bigg)^2 \nonumber \\
+%  &+ \Bigg( \frac{1}{2} \Bigg)\Bigg(\frac{2c_+ + c_-}{2} \Bigg)^2 + \Bigg( \frac{1}{2} \Bigg)\Bigg(\frac{2c_+ - c_-}{2} \Bigg)^2 - 
+%  2  \Bigg( \frac{1}{2} \Bigg)\Bigg(\frac{2c_+ + c_-}{2} \Bigg)\Bigg(\frac{2\dot{\xi}_+ + \dot{\xi}_-}{2} \Bigg)\nonumber \\
+%  &-   2  \Bigg( \frac{1}{2} \Bigg)\Bigg(\frac{2c_+ - c_-}{2} \Bigg)\Bigg(\frac{2\dot{\xi}_+ - \dot{\xi}_-}{2} \Bigg) +4i\epsilon \Bigg]_{PL} \nonumber \\
+%  =& 2\dot{b} + c^2 - a^2 - 2c\dot{\xi}+4i\epsilon \\
+%  \dot{\vec{p}}_a - \frac{d}{dt} p_a =&  2\dot{b} + c^2 - a^2 - 2c\dot{\xi}+4i\epsilon = 0 \label{ELa}
+%\end{align}
+%The Euler-Lagrangian for the parameter $b$ is given by 
+%\begin{align}
+%p_b =& \frac{\partial \bar{L}}{\partial \dot{b}_-} \Bigg|_{PL} =  \Bigg[ 2\Bigg(\frac{1}{2}\Bigg) \Bigg(\frac{2a_+ + a_-}{2}\Bigg) + 2\Bigg(\frac{1}{2}\Bigg) \Bigg(\frac{2a_+ - a_-}{2}\Bigg) \Bigg]_{PL} =  2a \\
+% \dot{\vec{p}}_b =& \frac{\partial \bar{L}}{\partial b_-} \Bigg|_{PL} = 0 \\
+% \dot{\vec{p}}_b - \frac{d}{dt} p_b =& -2 \dot{a} = 0 \label{ELb}
+%\end{align}
+%The Euler-Lagrangian for the parameter $c$ is given by 
+%\begin{align}
+%p_c =& \frac{\partial \bar{L}}{\partial \dot{c}_-} \Bigg|_{PL} = 0 \\
+% \dot{\vec{p}}_c =& \frac{\partial \bar{L}}{\partial c_-} \Bigg|_{PL} =  \Bigg[ 2\Bigg( \frac{1}{2} \Bigg)\Bigg(\frac{2a_+ + a_-}{2} \Bigg)\Bigg(\frac{2c_+ + c_-}{2} \Bigg) + 2\Bigg( \frac{1}{2} \Bigg)\Bigg(\frac{2a_+ - a_-}{2} \Bigg)\Bigg(\frac{2c_+ - c_-}{2} \Bigg)  \nonumber \\ 
+%  &- 2 \Bigg( \frac{1}{2} \Bigg)\Bigg(\frac{2a_+ + a_-}{2} \Bigg)\Bigg(\frac{2\dot{\xi}_+ + \dot{\xi}_-}{2} \Bigg) -   2  \Bigg( \frac{1}{2} \Bigg)\Bigg(\frac{2a_+ - a_-}{2} \Bigg)\Bigg(\frac{2\dot{\xi}_+ - \dot{\xi}_-}{2} \Bigg) -i\epsilon \Bigg]_{PL} \nonumber \\
+%  =& 2ac  - 2a\dot{\xi} \\
+%  \dot{\vec{p}}_b - \frac{d}{dt} p_b =&  2a(c-\dot{\xi}) = 0 \label{ELc}
+%\end{align}
+%The Euler-Lagrangian for the parameter $\xi$ is given by 
+%\begin{align}
+%p_{\xi} =& \frac{\partial \bar{L}}{\partial \dot{\xi}_-} \Bigg|_{PL} =  \Bigg[ -2\Bigg(\frac{1}{2}\Bigg) \Bigg(\frac{2a_+ + a_-}{2}\Bigg) \Bigg(\frac{2c_+ + c_-}{2}\Bigg)  - 2\Bigg(\frac{1}{2}\Bigg) \Bigg(\frac{2a_+ - a_-}{2}\Bigg) \Bigg(\frac{2c_+ - c_-}{2}\Bigg) \Bigg]_{PL}\nonumber \\
+%=& -2ac \\
+% \dot{\vec{p}}_{\xi} =& \frac{\partial \bar{L}}{\partial \xi_-} \Bigg|_{PL} = 0 \\
+% \dot{\vec{p}}_{\xi} - \frac{d}{dt} p_{\xi} =& - \frac{d}{dt}( -2ac) = 2a\dot{c} + 2c\dot{a} = 0 \label{ELxi}
+%\end{align}
+%Now we simultaneously solve the Euler-Lagrangian Equations~\ref{ELa},~\ref{ELb},~\ref{ELc}, and~\ref{ELxi} 
+%\[ \begin{cases}
+%2\dot{b} + c^2 - a^2 - 2c\dot{\xi}+4i\epsilon = 0 \\
+%-2 \dot{a} = 0 \\ 
+%2a(c-\dot{\xi}) = 0 \\ 
+%2a\dot{c} + 2c\dot{a} = 0\\ 
+%\end{cases} \]
+%for the equations of motion from the NCVA method:
+%\[\begin{cases}
+%\dot{a}  = 0 \\
+%\dot{b}  = \frac{1}{2}a^2 + \frac{1}{2} c^2 -2i\epsilon  \\
+%\dot{c} = 0  \\
+%\dot{\xi} = c
+%\end{cases}\] 

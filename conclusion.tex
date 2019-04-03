@@ -1,0 +1,124 @@
+\setstretch{1.3}
+\chapter{Conclusions}
+\label{chap:conclusion}
+\lhead{Chapter 6. \emph{Conclusions}} 
+
+\setstretch{2}
+Through the discourse of the present dissertation, two main conclusions are apparent.  The first is the demonstrated ability to apply non-conservational variational approximations (NCVA) to complex partial differential equations (PDEs) of the nonlinear Schr\"{o}dinger (NLS) type.  The second conclusion is the demonstrated advantages and shortcomings of using the NCVA method for these nonlinear systems.  The advantages of the NCVA, as with all variational approximations, is that given a suitably chosen ansatz,
+it is possible to reduce the original infinite-dimensional dynamics to
+a system of ordinary differential equations (ODEs) on the ansatz parameters.  As stated previously, an intrinsic drawback of the NCVA (and all variational approximations) methods is that the small finite-dimensional ansatz subspace may be inadequate to describe the dynamics of the PDE and lead to potentially invalid results.  When studying the SSB we encountered this shortcoming, and presented the outcome of these results.  Other drawbacks of the NCVA is the judicious choice of ansatz that requires prior knowledge of the dynamics of the system.  Also a potentially ``good'' ansatz with enough degrees of freedom to describe the dynamics might render the NCVA overly cumbersome and useless.  Another disadvantage of the NCVA is that the non-conservative forces may induce complex spatial patterns that can only be described using ans\"atze leading to cumbersome integrals without explicit solutions.  However, this obstacle can be circumvented with the implementation of numerical techniques to integrate these integrals.  The NCVA can be exploited for isolating changes in state, as identified as a bifurcation at a pump peak power in Kerr resonators and a parametric region of tweezability in temporal tweezing.  This motivates utilizing the NCVA for understanding nonlinear system parameters (such as pump peak power and tweezing conditions) to aid in the experimental setup of such systems to ensure certain desired dynamics.
+
+
+%In summary, three prototypical cases were offered to show how to formulate the non-conservative variational approximation (NCVA) described in Galley~\cite{Galley} with systems of complex partial differential equations.  The three systems were: the NLS with linear loss, the NLS with density dependent loss, and the NLS with linear gain and density dependent loss (exciton-polariton condensate).   The widely utilized perturbed variational method (PVA) developed from perturbation theory and the modified Kantorovitch method used by Cerda~\cite{Cerda}, produce the same modified Euler-Lagrange equations of motion as found in the NCVA based on Hamilton's principle of least action.  The ODEs prove valid for small loss/gain terms in the perturbational limit.  In the limit of large non-conservative terms, the projected lower dimensional system described by the ODEs fails to capture all the dynamics of the open system.
+
+In summary, we have extended the non-conservative variational formulation 
+recently
+proposed by Galley~\cite{Galley}. This was 
+originally developed for classical mechanics,
+namely for systems with few degrees of freedom (and subsequently extended,
+including in the form of a variational approximation, to nonlinear
+Klein-Gordon models in Ref.~\cite{ref4}), to the NLS
+equation (a complex partial differential equation, i.e., infinite number
+of degrees of freedom).
+%
+%
+We show that the resulting NCVA method for the
+NLS is equivalent to the (linear) perturbative
+variational method.
+%
+We provide several examples to test the validity of the NCVA.
+In particular, we include examples with linear and density-dependent (nonlinear)
+loss. We also showcase the application of this method to exciton-polariton
+condensates that are inherently lossy and need a pumping term to balance losses.
+%
+In these initial cases we see a very good qualitative and also,
+in principle, quantitative agreement (with the partial
+exception of the exciton-polariton condensate) between
+the original dynamics and statics for the NLS equation
+and its corresponding reduced NCVA counterpart.
+%
+%%This agreement seems to be preserved even when the non-conservative terms
+%are of the same order of magnitude as the other (conservative) terms. This
+%is in contrast with perturbation methods that intrinsically rely on the
+%non-conserved terms being small when compared to the conserved ones.
+
+Following validation of the NCVA method, we studied nonlinear optical systems modeled by the Lugiato-Lefever equation (LL)~\cite{LL} that corresponds to a non-Hamiltonian variant of the NLS.  In the application of the NCVA and center manifold technique to
+study the SSB bifurcations in a 
+coherently-driven passive optical Kerr resonator, it is found that variational ans\"atze lacking the appropriate 
+spatial phase dependence are not able to capture the intrinsic underlying fluid
+velocity fields and the delicate
+balance present in the steady state density solution.
+%
+These flows are ubiquitous in systems with gain and loss as
+the steady state consists of a balance between regions with
+gain and loss provided by flows from the former regions (sources) 
+to the latter ones (sinks).
+%
+Using a suitably adjusted variational ansatz, including higher order
+phase terms, the NCVA is capable of accurately predicting the
+threshold in the pump power for the onset of SSB
+---although it is not adequate for fully capturing the complex
+bifurcation structure (especially so at large pumping strength/large
+nonlinearity). 
+%predicting a Hopf bifurcation instead of the
+%actual pitchfork bifurcation that the systems undergoes.
+%
+To obtain a more complete and quantitative, as well as a more rigorous description, 
+we have employed a \JMR{center manifold approach} 
+%proved to accurately
+%describe the 
+capable of capturing both the
+forward and reverse pitchfork bifurcations of the
+original system, in terms
+of the profile shapes of the bifurcating asymmetrc steady states,
+and also in terms of the rate of convergence towards these
+stable asymmetric states when the symmetric one is rendered
+unstable. The numerical determination of the linearization spectrum
+of the system was not only important for completing the calculations
+associated with the \JMR{reduced equation}; it was also crucial towards
+a detailed understanding of the full stability/instability
+transitions.
+
+In that same vein, the identification of the parametric dependence of the spectrum has
+enabled us to uncover the emergence in the original LL model of a Hopf bifurcation. This, in turn, 
+was dynamically found to give rise to stable periodic solutions
+and hence illustrate that more complex bifurcation scenaria may arise
+as the cavity loss parameter is varied.
+
+Finally, we extended our NCVA approach to temporal cavity solitons which are stored in a passive loop of optical fiber pumped by a continuous-wave laser beam and observed in Ref.~\cite{tweeze} to be temporally tweezed through phase-modulation of the holding beam.  Temporal tweezing is modeled by the LL equation with additional terms due to the incorporation of a tweezer in the holding beam.  In our study, we assume a Gaussian phase-modulation and find the existence of three dynamical states (depending on the tweezer parameters) namely, a tweezed CS, a non-tweezed CS, and a dissipative CS.  We also develop a Lagrangian for the modified LL equation and its application to the NCVA.  As with the SSB, the NCVA is capable of predicting the threshold in the tweezer parameter space for tweezed CSs and dissipative no-CS states---although it is not adequate for fully capturing more complex dynamics (especially so for tweezers with large displacements and speeds).  From our analysis of temporal tweezing, we have beneficial insight into the design of tweezers used in optical information processing, which requires the ability to trap ultrashort pulses of light and dynamically move them around in time, with respect to, and independently of other pulses of light.
+
+
+\setstretch{1.3}
+\section{Future Research}
+\setstretch{2}
+
+It would be interesting to extend the application of the NCVA to the defocusing/repulsive NLS with a dark soliton type ansatz.  One particular application of the defocusing NLS is in the exciton-polariton condensate regime to  detect 
+the boundaries for stability inversion reported 
+in Ref.~\cite{ref8}. It was noted in that work that, surprisingly, 
+for some parameters values, the (originally) ``excited'' dark soliton 
+state (with one nodal point) becomes stable in favor of 
+the nodeless cloud state (the state without the dark soliton corresponding
+to the original ground state of the system in the absence on non-conservative
+terms) which in turn loses its stability. A systematic study of the
+dark soliton and its stability in such condensates can be found
+in Ref.~\cite{smirnov}.
+Also valuable would
+be to extend this approach to the two-dimensional case where the equivalent 
+stability inversion for vortices and rotating lattices has also
+been reported~\cite{berloff1}.
+
+In reference to temporal tweezing, multiple CSs can be present simultaneously and independently at arbitrary locations in a passive loop of optical fiber.  Therefore, a very interesting extension would be to add interactions of multiple CSs in the system.  Investigating the dynamics, interactions, and tweezability of the CS by allowing for long-range soliton interactions is necessary to understand an effective treatment of a CS, each of which constitute  an ideal bit in optical information processing.
+
+Lastly, this work opens, more broadly,
+a few interesting avenues for future explorations.
+In particular, it opens the possibility to apply a similar methodology
+to other models described by PDEs which
+contain non-conservative terms.  \JMR{The NCVA methodolgy could prove very useful as a heuristic approach to understand underlying physical regimes in non-conservative systems.}
+%The NCVAmethodology could prove very useful in cases where traditional perturbativetechniques, relying on the smallness of the non-conserved terms, faildue to the magnitude of the perturbations.
+%
+One such model is the quintessential complex Ginzburg-Landau
+equation~\cite{Aranson:02} that models an extremely wide
+range of open systems including nonlinear waves, phase transitions,
+superconductors and superfluids, among others.
+
+
